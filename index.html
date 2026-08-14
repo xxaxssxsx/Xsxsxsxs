@@ -1148,7 +1148,6 @@ h1{
 
       </p>
 
-
     </div>
 
 
@@ -1565,12 +1564,307 @@ function fecharHistorico(){
    CONSULTAS
 ========================= */
 
-function abrirConsulta(nome){
+async function abrirConsulta(nome){
 
   document
     .getElementById("menu")
     .classList.remove("open");
 
+
+  /* =========================
+     IP — ip-api.com
+  ========================= */
+
+  if(nome === "Buscar IP"){
+
+    const ip =
+      prompt("Digite o endereço IP:");
+
+    if(!ip) return;
+
+    try{
+
+      const resposta =
+        await fetch(
+          "http://ip-api.com/json/" +
+          encodeURIComponent(ip) +
+          "?fields=status,message,query,country,regionName,city,zip,lat,lon,isp,org,as,proxy,hosting"
+        );
+
+      const dados =
+        await resposta.json();
+
+      if(dados.status !== "success"){
+
+        alert(
+          "Erro ao consultar IP:\n\n" +
+          (dados.message || "IP inválido.")
+        );
+
+        return;
+
+      }
+
+      alert(
+        "RESULTADO DO IP\n\n" +
+
+        "IP: " + (dados.query || "-") + "\n" +
+        "País: " + (dados.country || "-") + "\n" +
+        "Região: " + (dados.regionName || "-") + "\n" +
+        "Cidade: " + (dados.city || "-") + "\n" +
+        "CEP: " + (dados.zip || "-") + "\n" +
+        "Latitude: " + (dados.lat ?? "-") + "\n" +
+        "Longitude: " + (dados.lon ?? "-") + "\n" +
+        "ISP: " + (dados.isp || "-") + "\n" +
+        "Organização: " + (dados.org || "-") + "\n" +
+        "ASN: " + (dados.as || "-") + "\n" +
+        "Proxy/VPN: " + (dados.proxy ? "Sim" : "Não") + "\n" +
+        "Hosting: " + (dados.hosting ? "Sim" : "Não")
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "Erro ao consultar a API do IP."
+      );
+
+    }
+
+    return;
+
+  }
+
+
+
+  /* =========================
+     CNPJ — BrasilAPI
+  ========================= */
+
+  if(nome === "CNPJ"){
+
+    const cnpj =
+      prompt("Digite o CNPJ:");
+
+    if(!cnpj) return;
+
+    const numero =
+      cnpj.replace(/\D/g,"");
+
+    try{
+
+      const resposta =
+        await fetch(
+          "https://brasilapi.com.br/api/cnpj/v1/" +
+          numero
+        );
+
+      const dados =
+        await resposta.json();
+
+      if(!resposta.ok){
+
+        alert(
+          "Erro ao consultar CNPJ:\n\n" +
+          (dados.message || "CNPJ não encontrado.")
+        );
+
+        return;
+
+      }
+
+      alert(
+        "RESULTADO DO CNPJ\n\n" +
+
+        "CNPJ: " + (dados.cnpj || "-") + "\n" +
+        "Razão Social: " +
+          (dados.razao_social || "-") + "\n" +
+        "Nome Fantasia: " +
+          (dados.nome_fantasia || "-") + "\n" +
+        "Situação: " +
+          (dados.descricao_situacao_cadastral || "-") + "\n" +
+        "Data de Início: " +
+          (dados.data_inicio_atividade || "-") + "\n" +
+        "Endereço: " +
+          (dados.logradouro || "-") + ", " +
+          (dados.numero || "-") + "\n" +
+        "Bairro: " +
+          (dados.bairro || "-") + "\n" +
+        "Município: " +
+          (dados.municipio || "-") + "\n" +
+        "UF: " +
+          (dados.uf || "-") + "\n" +
+        "CEP: " +
+          (dados.cep || "-")
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "Erro ao consultar a API do CNPJ."
+      );
+
+    }
+
+    return;
+
+  }
+
+
+
+  /* =========================
+     CEP — ViaCEP
+  ========================= */
+
+  if(nome === "CEP"){
+
+    const cep =
+      prompt("Digite o CEP:");
+
+    if(!cep) return;
+
+    const numero =
+      cep.replace(/\D/g,"");
+
+    try{
+
+      const resposta =
+        await fetch(
+          "https://viacep.com.br/ws/" +
+          numero +
+          "/json/"
+        );
+
+      const dados =
+        await resposta.json();
+
+      if(dados.erro){
+
+        alert(
+          "CEP não encontrado."
+        );
+
+        return;
+
+      }
+
+      alert(
+        "RESULTADO DO CEP\n\n" +
+
+        "CEP: " + (dados.cep || "-") + "\n" +
+        "Logradouro: " +
+          (dados.logradouro || "-") + "\n" +
+        "Complemento: " +
+          (dados.complemento || "-") + "\n" +
+        "Bairro: " +
+          (dados.bairro || "-") + "\n" +
+        "Cidade: " +
+          (dados.localidade || "-") + "\n" +
+        "UF: " +
+          (dados.uf || "-") + "\n" +
+        "DDD: " +
+          (dados.ddd || "-")
+      );
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "Erro ao consultar a API do CEP."
+      );
+
+    }
+
+    return;
+
+  }
+
+
+
+  /* =========================
+     RASTREAMENTO — Nominatim
+  ========================= */
+
+  if(nome === "Rastrear encomenda"){
+
+    const busca =
+      prompt("Digite a informação para pesquisar:");
+
+    if(!busca) return;
+
+    try{
+
+      const resposta =
+        await fetch(
+          "https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q=" +
+          encodeURIComponent(busca),
+          {
+            headers:{
+              "Accept":"application/json"
+            }
+          }
+        );
+
+      const dados =
+        await resposta.json();
+
+      if(!dados.length){
+
+        alert(
+          "Nenhum resultado encontrado."
+        );
+
+        return;
+
+      }
+
+      let resultado =
+        "RESULTADO DA CONSULTA\n\n";
+
+      dados.forEach(
+        function(item,index){
+
+          resultado +=
+            (index + 1) +
+            ". " +
+            (item.display_name || "-") +
+            "\n" +
+            "Latitude: " +
+            (item.lat || "-") +
+            "\n" +
+            "Longitude: " +
+            (item.lon || "-") +
+            "\n\n";
+
+        }
+      );
+
+      alert(resultado);
+
+    }catch(error){
+
+      console.error(error);
+
+      alert(
+        "Erro ao consultar o Nominatim."
+      );
+
+    }
+
+    return;
+
+  }
+
+
+
+  /* =========================
+     OUTRAS FERRAMENTAS
+     PERMANECEM IGUAIS
+  ========================= */
 
   alert(
     "Ferramenta selecionada: " +
@@ -1846,8 +2140,7 @@ document
       try{
 
 
- 
-        /* =====================
+/* =====================
            CADASTRO
         ===================== */
 
