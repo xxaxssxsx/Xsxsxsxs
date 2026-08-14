@@ -693,6 +693,216 @@ h1{
 
 
 /* =========================
+   CONSULTAS
+========================= */
+
+.consulta-overlay{
+
+  display:none;
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:500;
+
+  padding:20px;
+
+  align-items:center;
+
+  justify-content:center;
+
+  background:#000b;
+
+  backdrop-filter:blur(5px);
+
+}
+
+.consulta-overlay.show{
+  display:flex;
+}
+
+.consulta-card{
+
+  width:min(850px,100%);
+
+  max-height:90vh;
+
+  overflow-y:auto;
+
+  padding:25px;
+
+  border-radius:20px;
+
+  border:1px solid #28639b;
+
+  background:#071329;
+
+  box-shadow:0 25px 80px #000;
+
+}
+
+.consulta-header{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:15px;
+
+  margin-bottom:20px;
+
+}
+
+.consulta-header h2{
+  margin:0;
+}
+
+.consulta-close{
+
+  width:40px;
+
+  height:40px;
+
+  border-radius:9px;
+
+  border:1px solid #28639b;
+
+  background:#07182f;
+
+  color:white;
+
+  font-size:20px;
+
+}
+
+.consulta-input{
+
+  width:100%;
+
+  padding:14px;
+
+  border-radius:9px;
+
+  border:1px solid #294d78;
+
+  background:#020813;
+
+  color:white;
+
+  outline:none;
+
+  margin-bottom:12px;
+
+}
+
+.consulta-input:focus{
+  border-color:#168bff;
+}
+
+.consulta-actions{
+
+  display:flex;
+
+  gap:10px;
+
+  flex-wrap:wrap;
+
+  margin-bottom:20px;
+
+}
+
+.consulta-grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(3,1fr);
+
+  gap:10px;
+
+}
+
+.consulta-platform{
+
+  padding:14px;
+
+  border-radius:10px;
+
+  border:1px solid #20568e;
+
+  background:#07182f;
+
+  color:white;
+
+  text-align:left;
+
+}
+
+.consulta-platform:hover{
+
+  border-color:#42aaff;
+
+  background:#0a2140;
+
+}
+
+.dork-item{
+
+  display:flex;
+
+  align-items:center;
+
+  justify-content:space-between;
+
+  gap:10px;
+
+  padding:12px;
+
+  margin-bottom:8px;
+
+  border-radius:10px;
+
+  border:1px solid #1c426b;
+
+  background:#040b18;
+
+}
+
+.dork-item span{
+
+  color:#c7d2e4;
+
+  font-size:13px;
+
+  word-break:break-word;
+
+}
+
+.dork-item button{
+
+  flex-shrink:0;
+
+  padding:8px 12px;
+
+  border-radius:8px;
+
+  border:1px solid #28639b;
+
+  background:#07182f;
+
+  color:white;
+
+}
+
+.dork-item button:hover{
+  background:#0a2140;
+}
+
+
+/* =========================
    RESPONSIVO
 ========================= */
 
@@ -703,6 +913,14 @@ h1{
     grid-template-columns:
       repeat(2,1fr);
 
+  }
+
+}
+
+@media(max-width:650px){
+
+  .consulta-grid{
+    grid-template-columns:1fr 1fr;
   }
 
 }
@@ -733,6 +951,14 @@ h1{
 
     font-size:27px;
 
+  }
+
+}
+
+@media(max-width:450px){
+
+  .consulta-grid{
+    grid-template-columns:1fr;
   }
 
 }
@@ -1370,6 +1596,124 @@ h1{
 
 
 <!-- =========================
+     MODAL DE CONSULTAS
+========================= -->
+
+<div
+  class="consulta-overlay"
+  id="consultaOverlay">
+
+  <div class="consulta-card">
+
+    <div class="consulta-header">
+
+      <h2 id="consultaTitulo">
+        Consulta
+      </h2>
+
+      <button
+        class="consulta-close"
+        type="button"
+        onclick="fecharConsulta()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <!-- BUSCAR NOME -->
+
+    <div
+      id="consultaNome"
+      style="display:none">
+
+      <p style="color:#91a0b8">
+
+        Pesquise informações públicas pelo nome
+        usando mecanismos de busca e páginas públicas.
+
+      </p>
+
+      <input
+        class="consulta-input"
+        id="nomeBusca"
+        type="text"
+        placeholder="Digite o nome completo">
+
+
+      <div
+        class="consulta-actions">
+
+        <button
+          class="btn primary"
+          type="button"
+          onclick="pesquisarNomeGeral()">
+
+          🔎 Pesquisar
+
+        </button>
+
+      </div>
+
+
+      <div id="dorksList"></div>
+
+    </div>
+
+
+
+    <!-- REDES SOCIAIS -->
+
+    <div
+      id="consultaRedes"
+      style="display:none">
+
+      <p style="color:#91a0b8">
+
+        Digite um nome de usuário para abrir a pesquisa
+        pública nas principais plataformas.
+
+      </p>
+
+      <input
+        class="consulta-input"
+        id="usuarioBusca"
+        type="text"
+        placeholder="Digite o nome de usuário">
+
+
+      <div
+        class="consulta-actions">
+
+        <button
+          class="btn primary"
+          type="button"
+          onclick="abrirTodasRedes()">
+
+          🌐 Abrir todas
+
+        </button>
+
+      </div>
+
+
+      <div
+        class="consulta-grid"
+        id="redesList">
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+
+<!-- =========================
      JAVASCRIPT DA INTERFACE
 ========================= -->
 
@@ -1862,8 +2206,35 @@ async function abrirConsulta(nome){
 
 
   /* =========================
+     BUSCAR NOME
+  ========================= */
+
+  if(nome === "Buscar Nome"){
+
+    abrirConsultaNome();
+
+    return;
+
+  }
+
+
+
+  /* =========================
+     REDES SOCIAIS
+  ========================= */
+
+  if(nome === "Redes Sociais"){
+
+    abrirConsultaRedes();
+
+    return;
+
+  }
+
+
+
+  /* =========================
      OUTRAS FERRAMENTAS
-     PERMANECEM IGUAIS
   ========================= */
 
   alert(
@@ -1873,6 +2244,487 @@ async function abrirConsulta(nome){
   );
 
 }
+
+
+
+/* =========================
+   BUSCAR NOME
+========================= */
+
+const plataformasDork = [
+
+  ["Google geral", ""],
+
+  ["Facebook", "site:facebook.com"],
+
+  ["Instagram", "site:instagram.com"],
+
+  ["YouTube", "site:youtube.com"],
+
+  ["LinkedIn", "site:linkedin.com"],
+
+  ["X", "site:x.com"],
+
+  ["TikTok", "site:tiktok.com"],
+
+  ["Reddit", "site:reddit.com"],
+
+  ["GitHub", "site:github.com"],
+
+  ["GitLab", "site:gitlab.com"],
+
+  ["Pinterest", "site:pinterest.com"],
+
+  ["Medium", "site:medium.com"],
+
+  ["Quora", "site:quora.com"],
+
+  ["Twitch", "site:twitch.tv"],
+
+  ["Behance", "site:behance.net"],
+
+  ["Dribbble", "site:dribbble.com"]
+
+];
+
+
+function abrirConsultaNome(){
+
+  document
+    .getElementById("consultaOverlay")
+    .classList.add("show");
+
+
+  document
+    .getElementById("consultaTitulo")
+    .textContent =
+      "🔎 Buscar Nome";
+
+
+  document
+    .getElementById("consultaNome")
+    .style.display =
+      "block";
+
+
+  document
+    .getElementById("consultaRedes")
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById("nomeBusca")
+    .focus();
+
+
+  gerarDorks();
+
+}
+
+
+function gerarDorks(){
+
+  const nome =
+    document
+      .getElementById("nomeBusca")
+      .value
+      .trim();
+
+
+  const container =
+    document
+      .getElementById("dorksList");
+
+
+  container.innerHTML = "";
+
+
+  plataformasDork.forEach(
+    function(item){
+
+      const plataforma =
+        item[0];
+
+      const filtro =
+        item[1];
+
+
+      const consulta =
+        nome
+          ? '"' +
+            nome +
+            '"' +
+            (filtro ? " " + filtro : "")
+          : (
+              '"' +
+              "Nome Sobrenome" +
+              '"' +
+              (filtro ? " " + filtro : "")
+            );
+
+
+      const div =
+        document.createElement("div");
+
+
+      div.className =
+        "dork-item";
+
+
+      const span =
+        document.createElement("span");
+
+
+      span.textContent =
+        plataforma +
+        ": " +
+        consulta;
+
+
+      const botao =
+        document.createElement("button");
+
+
+      botao.type =
+        "button";
+
+
+      botao.textContent =
+        "Pesquisar";
+
+
+      botao.onclick =
+        function(){
+
+          window.open(
+            "https://www.google.com/search?q=" +
+            encodeURIComponent(consulta),
+            "_blank",
+            "noopener,noreferrer"
+          );
+
+        };
+
+
+      div.appendChild(span);
+
+      div.appendChild(botao);
+
+      container.appendChild(div);
+
+    }
+  );
+
+}
+
+
+function pesquisarNomeGeral(){
+
+  const nome =
+    document
+      .getElementById("nomeBusca")
+      .value
+      .trim();
+
+
+  if(!nome){
+
+    alert(
+      "Digite um nome para pesquisar."
+    );
+
+    return;
+
+  }
+
+
+  const consulta =
+    '"' +
+    nome +
+    '"';
+
+
+  window.open(
+    "https://www.google.com/search?q=" +
+    encodeURIComponent(consulta),
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+
+  gerarDorks();
+
+}
+
+
+
+/* =========================
+   REDES SOCIAIS
+========================= */
+
+const plataformasRedes = [
+
+  ["Instagram", "https://www.instagram.com/"],
+
+  ["Facebook", "https://www.facebook.com/"],
+
+  ["TikTok", "https://www.tiktok.com/@"],
+
+  ["YouTube", "https://www.youtube.com/@"],
+
+  ["X", "https://x.com/"],
+
+  ["LinkedIn", "https://www.linkedin.com/in/"],
+
+  ["Reddit", "https://www.reddit.com/user/"],
+
+  ["Pinterest", "https://www.pinterest.com/"],
+
+  ["Snapchat", "https://www.snapchat.com/add/"],
+
+  ["Telegram", "https://t.me/"],
+
+  ["Threads", "https://www.threads.net/@"],
+
+  ["Twitch", "https://www.twitch.tv/"],
+
+  ["GitHub", "https://github.com/"],
+
+  ["GitLab", "https://gitlab.com/"],
+
+  ["Medium", "https://medium.com/@"],
+
+  ["Quora", "https://www.quora.com/profile/"],
+
+  ["Tumblr", "https://www.tumblr.com/"],
+
+  ["Mastodon", "https://mastodon.social/@"],
+
+  ["Bluesky", "https://bsky.app/profile/"],
+
+  ["Vimeo", "https://vimeo.com/"],
+
+  ["SoundCloud", "https://soundcloud.com/"],
+
+  ["Behance", "https://www.behance.net/"],
+
+  ["Dribbble", "https://dribbble.com/"],
+
+  ["Flickr", "https://www.flickr.com/people/"]
+
+];
+
+
+function abrirConsultaRedes(){
+
+  document
+    .getElementById("consultaOverlay")
+    .classList.add("show");
+
+
+  document
+    .getElementById("consultaTitulo")
+    .textContent =
+      "🌐 Redes Sociais";
+
+
+  document
+    .getElementById("consultaNome")
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById("consultaRedes")
+    .style.display =
+      "block";
+
+
+  document
+    .getElementById("usuarioBusca")
+    .focus();
+
+
+  gerarPlataformas();
+
+}
+
+
+function gerarPlataformas(){
+
+  const container =
+    document
+      .getElementById("redesList");
+
+
+  container.innerHTML = "";
+
+
+  plataformasRedes.forEach(
+    function(item){
+
+      const nome =
+        item[0];
+
+      const base =
+        item[1];
+
+
+      const botao =
+        document.createElement("button");
+
+
+      botao.type =
+        "button";
+
+
+      botao.className =
+        "consulta-platform";
+
+
+      botao.textContent =
+        "🌐 " + nome;
+
+
+      botao.onclick =
+        function(){
+
+          abrirRede(
+            base,
+            nome
+          );
+
+        };
+
+
+      container.appendChild(botao);
+
+    }
+  );
+
+}
+
+
+function abrirRede(base,nome){
+
+  const usuario =
+    document
+      .getElementById("usuarioBusca")
+      .value
+      .trim()
+      .replace(/^@/,"");
+
+
+  if(!usuario){
+
+    alert(
+      "Digite um nome de usuário."
+    );
+
+    return;
+
+  }
+
+
+  const url =
+    base +
+    encodeURIComponent(usuario);
+
+
+  window.open(
+    url,
+    "_blank",
+    "noopener,noreferrer"
+  );
+
+}
+
+
+function abrirTodasRedes(){
+
+  const usuario =
+    document
+      .getElementById("usuarioBusca")
+      .value
+      .trim()
+      .replace(/^@/,"");
+
+
+  if(!usuario){
+
+    alert(
+      "Digite um nome de usuário."
+    );
+
+    return;
+
+  }
+
+
+  if(!confirm(
+    "Abrir as 24 plataformas em novas abas?"
+  )){
+
+    return;
+
+  }
+
+
+  plataformasRedes.forEach(
+    function(item){
+
+      const url =
+        item[1] +
+        encodeURIComponent(usuario);
+
+
+      window.open(
+        url,
+        "_blank",
+        "noopener,noreferrer"
+      );
+
+    }
+  );
+
+}
+
+
+function fecharConsulta(){
+
+  document
+    .getElementById("consultaOverlay")
+    .classList.remove("show");
+
+}
+
+
+document
+  .getElementById("consultaOverlay")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(
+        e.target ===
+        this
+      ){
+
+        fecharConsulta();
+
+      }
+
+    }
+  );
+
+
+document
+  .getElementById("nomeBusca")
+  .addEventListener(
+    "input",
+    gerarDorks
+  );
 
 
 
@@ -2140,7 +2992,7 @@ document
       try{
 
 
-/* =====================
+        /* =====================
            CADASTRO
         ===================== */
 
@@ -2224,10 +3076,6 @@ document
 
 
 
-          /*
-             Só agora abre o painel.
-          */
-
           await abrirPainel(
             resultado.user
           );
@@ -2263,10 +3111,6 @@ document
           mensagem.textContent =
             "Login realizado! Entrando...";
 
-
-          /*
-             Só agora abre o painel.
-          */
 
           await abrirPainel(
             resultado.user
@@ -2335,19 +3179,6 @@ document
    OBSERVA AUTENTICAÇÃO
 ========================= */
 
-/*
-   IMPORTANTE:
-
-   Este código NÃO abre mais o painel
-   automaticamente.
-
-   Ao carregar o site, o usuário continua
-   na capa.
-
-   O painel é aberto somente por
-   abrirPainel() depois do login/cadastro.
-*/
-
 onAuthStateChanged(
   auth,
   function(user){
@@ -2359,15 +3190,6 @@ onAuthStateChanged(
       return;
 
     }
-
-    /*
-      Não fazer nada aqui.
-
-      Isso impede que o site pule
-      automaticamente para o painel
-      quando o navegador já possui uma
-      sessão Firebase.
-    */
 
   }
 );
