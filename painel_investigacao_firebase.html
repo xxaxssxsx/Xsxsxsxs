@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Painel Investigação</title>
+<style>
+:root{
+  --bg:#030611;--bg2:#070d1d;--card:#081329;--card2:#0a1730;
+  --blue:#1687ff;--blue2:#55b5ff;--red:#ff2845;--red2:#ff6478;
+  --text:#f7f9ff;--muted:#aeb9d4;--line:#1b3969;--green:#22e56e;
+}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text)}
+body{background:
+ radial-gradient(circle at 5% 25%,rgba(255,20,50,.18),transparent 25%),
+ radial-gradient(circle at 95% 45%,rgba(0,100,255,.20),transparent 28%),
+ linear-gradient(135deg,#02040b,#040a18 50%,#020817);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.18;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:44px 44px}
+button,input{font:inherit}.hidden{display:none!important}
+
+.auth{min-height:100vh;display:grid;place-items:center;padding:24px}
+.auth-box{width:min(450px,100%);padding:34px;border:1px solid #234c88;border-radius:26px;background:rgba(5,14,33,.9);box-shadow:0 0 55px rgba(0,98,255,.13),0 0 35px rgba(255,25,50,.08)}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:28px}
+.logo{width:58px;height:58px;border:2px solid var(--red);border-right-color:var(--blue);border-radius:17px 24px 17px 24px;display:grid;place-items:center;font-size:30px;box-shadow:0 0 22px rgba(255,30,55,.3)}
+.brand b{display:block;font-size:19px;letter-spacing:1px}.brand span{color:var(--red);font-size:15px;letter-spacing:2px}
+.auth h1{font-size:30px;margin:0 0 8px}.auth p{color:var(--muted);margin:0 0 24px}
+.field{margin-bottom:14px}.field label{display:block;font-size:13px;color:#cbd4e9;margin-bottom:7px}.field input{width:100%;padding:14px 15px;border:1px solid #29466f;background:#030a19;color:#fff;border-radius:11px;outline:none}.field input:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(22,135,255,.12)}
+.primary{width:100%;padding:14px;border:0;border-radius:11px;color:#fff;font-weight:800;cursor:pointer;background:linear-gradient(90deg,var(--red),#be2140 46%,var(--blue));box-shadow:0 8px 22px rgba(22,110,255,.16)}
+.switch{text-align:center;color:var(--muted);font-size:14px;margin-top:18px}.switch button{border:0;background:none;color:#55aaff;cursor:pointer;font-weight:700}.error{color:#ff6879;font-size:13px;margin-top:10px;min-height:18px}
+
+.app{min-height:100vh}.wrap{width:min(1180px,calc(100% - 34px));margin:auto}
+header{height:94px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(66,96,151,.3)}
+nav{display:flex;gap:34px}.nav-link{color:#eef2ff;text-decoration:none;font-size:14px}.nav-link.active{color:#fff}
+.user-area{display:flex;align-items:center;gap:10px}.avatar{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;border:1px solid var(--red);box-shadow:0 0 18px rgba(255,30,55,.28)}.user-name{font-size:14px}.status{font-size:11px;color:#b9c3d9;margin-top:3px}.status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);margin-right:5px}
+
+main{padding:28px 0 45px}.hero{position:relative;overflow:hidden;padding:39px 54px;border-radius:24px;border:1px solid var(--red);border-right-color:var(--blue);background:radial-gradient(circle at 4% 60%,rgba(255,28,48,.18),transparent 31%),radial-gradient(circle at 95% 55%,rgba(0,112,255,.2),transparent 35%),rgba(5,14,35,.82);box-shadow:0 0 38px rgba(255,25,45,.06)}
+.hero:after{content:"⌕";position:absolute;right:65px;top:15px;font-size:170px;color:rgba(35,130,255,.11);transform:rotate(-12deg);pointer-events:none}.kicker{font-size:13px;letter-spacing:3px;color:#ff4b60;font-weight:800}.hero h2{font-size:48px;margin:18px 0 8px}.grad{background:linear-gradient(90deg,#1b8aff,#e82b51);color:transparent;background-clip:text;-webkit-background-clip:text}.hero p{font-size:18px;color:#c4cce0;margin:0 0 20px}.secure{display:inline-flex;align-items:center;gap:9px;padding:10px 16px;border-radius:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}.secure i{width:11px;height:11px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green)}
+
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:24px}.tool{min-height:250px;border:1px solid #1b64ca;border-radius:21px;background:linear-gradient(145deg,rgba(7,21,47,.97),rgba(3,10,25,.95));padding:24px 18px;text-align:center;cursor:pointer;transition:.2s transform,.2s box-shadow}.tool:nth-child(3n+1),.tool:nth-child(4n){border-color:#d52b46}.tool:hover{transform:translateY(-4px);box-shadow:0 0 25px rgba(15,118,255,.2)}.tool:nth-child(3n+1):hover,.tool:nth-child(4n):hover{box-shadow:0 0 25px rgba(255,28,55,.17)}
+.tool-icon{width:72px;height:72px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;font-size:31px;color:#64b4ff;border:1px solid var(--blue);box-shadow:0 0 18px rgba(0,120,255,.25)}.tool:nth-child(3n+1) .tool-icon,.tool:nth-child(4n) .tool-icon{color:#ff6979;border-color:var(--red);box-shadow:0 0 18px rgba(255,30,55,.25)}
+.tool h3{font-size:19px;margin:0 0 7px}.tool p{color:#aeb9d3;margin:0;line-height:1.4;font-size:14px}.arrow{width:54px;height:29px;margin:15px auto 0;border:1px solid currentColor;border-radius:8px;display:grid;place-items:center;font-size:20px;color:var(--blue2)}.tool:nth-child(3n+1) .arrow,.tool:nth-child(4n) .arrow{color:var(--red2)}
+
+.more{display:flex;justify-content:flex-end;margin-top:22px;position:relative}.more-btn{width:51px;height:51px;border-radius:15px;border:1px solid #285f9f;background:#07152f;color:#fff;font-size:25px;cursor:pointer;box-shadow:0 0 20px rgba(0,102,255,.14)}
+.menu{position:absolute;right:0;top:61px;width:245px;padding:9px;border:1px solid #26558e;border-radius:15px;background:#06132b;box-shadow:0 20px 55px rgba(0,0,0,.55);display:none;z-index:5}.menu.open{display:block}.menu button{width:100%;display:flex;gap:12px;align-items:center;text-align:left;border:0;background:transparent;color:#eaf0ff;padding:12px;border-radius:9px;cursor:pointer}.menu button:hover{background:#0d2347}.menu .logout{color:#ff6879}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(7px);display:none;place-items:center;padding:18px;z-index:20}.modal.show{display:grid}.dialog{width:min(490px,100%);padding:27px;border:1px solid #275c9f;border-radius:20px;background:#07142d;box-shadow:0 25px 80px #000}.dialog h2{margin:0 0 7px}.dialog p{color:#aeb9d3}.dialog input{width:100%;padding:13px;border-radius:10px;border:1px solid #2d4d78;background:#020918;color:#fff;outline:none}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:17px}.btn{padding:10px 16px;border-radius:9px;border:1px solid #315e91;background:#0c2143;color:#fff;cursor:pointer}.btn.red{background:#a9142b;border-color:#ff3650}
+
+footer{margin-top:25px;border:1px solid #19365f;border-radius:17px;padding:17px 23px;color:#aeb9d3;font-size:13px;background:rgba(4,12,29,.78)}footer b{color:#399cff}
+
+.toast{position:fixed;right:20px;bottom:20px;background:#081832;border:1px solid #2665aa;padding:13px 17px;border-radius:10px;display:none;z-index:50;box-shadow:0 10px 35px #000}
+
+@media(max-width:900px){.tools{grid-template-columns:repeat(2,1fr)}nav{gap:15px}.hero{padding:34px}.hero h2{font-size:40px}}
+@media(max-width:600px){.wrap{width:calc(100% - 22px)}header{height:auto;padding:15px 0;flex-wrap:wrap;gap:14px}.user-name{display:none}nav{width:100%;justify-content:space-between;order:3}.nav-link{font-size:12px}.hero{padding:27px 22px}.hero h2{font-size:34px}.hero:after{right:-10px;top:60px;font-size:115px}.tools{grid-template-columns:1fr;gap:13px}.tool{min-height:220px}.more{margin-top:16px}footer{margin-bottom:20px}}
+</style>
+</head>
+<body>
+
+<!-- TELA DE LOGIN/CADASTRO -->
+<section id="auth" class="auth">
+  <div class="auth-box">
+    <div class="brand"><div class="logo">⌕</div><div><b>PAINEL</b><span>INVESTIGAÇÃO</span></div></div>
+    <h1 id="authTitle">Entrar no painel</h1>
+    <p id="authSubtitle">Acesse sua conta para continuar.</p>
+
+    <form id="authForm">
+      <div class="field" id="nameField" style="display:none"><label>Nome</label><input id="name" type="text" autocomplete="name"></div>
+      <div class="field"><label>E-mail</label><input id="email" type="email" required autocomplete="email"></div>
+      <div class="field"><label>Senha</label><input id="password" type="password" required minlength="6" autocomplete="current-password"></div>
+      <button class="primary" id="authSubmit">Entrar</button>
+      <div class="error" id="authError"></div>
+    </form>
+    <div class="switch"><span id="switchText">Ainda não tem cadastro?</span> <button id="switchBtn" type="button">Criar conta</button></div>
+  </div>
+</section>
+
+<!-- PAINEL APÓS LOGIN -->
+<section id="app" class="app hidden">
+  <div class="wrap">
+    <header>
+      <div class="brand" style="margin:0"><div class="logo">⌕</div><div><b>PAINEL</b><span>INVESTIGAÇÃO</span></div></div>
+      <nav>
+        <a class="nav-link active" href="#">⌂ &nbsp;INÍCIO</a>
+        <a class="nav-link" href="#">ⓘ &nbsp;SOBRE NÓS</a>
+        <a class="nav-link" href="#">✉ &nbsp;CONTATO</a>
+      </nav>
+      <div class="user-area"><div class="avatar">●</div><div><div class="user-name" id="displayName">Usuário</div><div class="status"><i></i>Online</div></div></div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="kicker">PAINEL ONLINE</div>
+        <h2>Olá, <span class="grad" id="helloName">Usuário!</span></h2>
+        <p>Selecione uma ferramenta para iniciar sua consulta.</p>
+        <div class="secure"><i></i>Sistema online e seguro</div>
+      </section>
+
+      <section class="tools" id="tools"></section>
+
+      <div class="more">
+        <button class="more-btn" id="moreBtn" title="Mais opções">⋮</button>
+        <div class="menu" id="moreMenu">
+          <button onclick="showFeature('DDD + cidades')">☎️ <span>DDD + cidades</span></button>
+          <button onclick="showFeature('Rastrear encomenda')">📦 <span>Rastrear encomenda</span></button>
+          <button onclick="showFeature('Feriados nacionais')">📅 <span>Feriados nacionais</span></button>
+          <button onclick="showFeature('Histórico')">🕘 <span>Histórico</span></button>
+          <button class="logout" onclick="logout()">🚪 <span>Sair</span></button>
+        </div>
+      </div>
+
+      <footer><b>Privacidade e segurança:</b> use somente fontes públicas ou APIs autorizadas e trate dados pessoais conforme a legislação aplicável.</footer>
+    
+
+<div
+  class="menu"
+  id="menu">
+
+
+  <button
+    type="button"
+    onclick="mostrarHistorico()">
+
+    📜 Histórico
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('Buscar IP')">
+
+    🌐 Buscar IP — ip-api.com
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('Dados de Telefone')">
+
+    ☎️ Dados de Telefone — BrasilAPI
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('Veículo')">
+
+    🚗 Veículo — BrasilAPI
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('CNPJ')">
+
+    🏢 CNPJ — BrasilAPI
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('CPF')">
+
+    🪪 CPF — BrasilAPI
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('Buscar Nome')">
+
+    🔎 Buscar Nome — Google Custom Search
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('Redes Sociais')">
+
+    🌐 Redes Sociais
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('Consultar E-mail')">
+
+    📧 Consultar E-mail — Validação + Registro.br
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('CEP')">
+
+    📍 CEP — ViaCEP
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('CPF Completo')">
+
+    🪪 CPF Completo — BrasilAPI
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('DDD + cidades')">
+
+    ☎️ DDD + cidades — BrasilAPI
+
+  </button>
+
+
+  <button
+    type="button"
+    onclick="abrirConsulta('Rastrear encomenda')">
+
+    📦 Rastrear encomenda — Nominatim
+
+  </button>
+
+
+  <button
+    type="button"
+    class="sair"
+    onclick="sair()">
+
+    🚪 Sair
+
+  </button>
+
+
+</div>
+
+</main>
+  </div>
+</section>
+
+<div class="modal" id="modal">
+  <div class="dialog">
+    <h2 id="modalTitle">Consulta</h2>
+    <p id="modalDescription">Informe o dado para iniciar a consulta.</p>
+    <input id="query" placeholder="Digite aqui...">
+    <div class="dialog-actions"><button class="btn" onclick="closeModal()">Cancelar</button><button class="btn red" onclick="submitQuery()">Consultar</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- Firebase: substitua o objeto firebaseConfig abaixo pelos dados do seu projeto. -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+  signOut, onAuthStateChanged, updateProfile
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCpLGPXTJbpJr5waC7CCLNiX6a5m7KV7Y8",
+  authDomain: "puxar-dados-edf9d.firebaseapp.com",
+  projectId: "puxar-dados-edf9d",
+  storageBucket: "puxar-dados-edf9d.firebasestorage.app",
+  messagingSenderId: "1027365433148",
+  appId: "1:1027365433148:web:5a6b4b05844117828f3839"
+};
+
+const firebaseReady = !firebaseConfig.apiKey.startsWith("COLOQUE_");
+
+let auth = null;
+if(firebaseReady){
+  const app = initializeApp(firebaseConfig);
+  auth = getAuth(app);
+}
+
+const authScreen = document.getElementById("auth");
+const appScreen = document.getElementById("app");
+const authForm = document.getElementById("authForm");
+const authTitle = document.getElementById("authTitle");
+const authSubtitle = document.getElementById("authSubtitle");
+const nameField = document.getElementById("nameField");
+const switchText = document.getElementById("switchText");
+const switchBtn = document.getElementById("switchBtn");
+const authSubmit = document.getElementById("authSubmit");
+const authError = document.getElementById("authError");
+
+let registerMode = false;
+
+switchBtn.onclick = () => {
+  registerMode = !registerMode;
+  nameField.style.display = registerMode ? "block" : "none";
+  authTitle.textContent = registerMode ? "Criar sua conta" : "Entrar no painel";
+  authSubtitle.textContent = registerMode ? "Cadastre-se para acessar o painel." : "Acesse sua conta para continuar.";
+  authSubmit.textContent = registerMode ? "Criar conta" : "Entrar";
+  switchText.textContent = registerMode ? "Já tem uma conta?" : "Ainda não tem cadastro?";
+  switchBtn.textContent = registerMode ? "Entrar" : "Criar conta";
+  authError.textContent = "";
+};
+
+authForm.onsubmit = async (e) => {
+  e.preventDefault();
+  authError.textContent = "";
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const name = document.getElementById("name").value.trim();
+
+  if(!firebaseReady){
+    authError.textContent = "Configure o firebaseConfig neste arquivo para ativar login e cadastro.";
+    return;
+  }
+
+  try{
+    if(registerMode){
+      const cred = await createUserWithEmailAndPassword(auth,email,password);
+      if(name) await updateProfile(cred.user,{displayName:name});
+      openDashboard(cred.user);
+    }else{
+      const cred = await signInWithEmailAndPassword(auth,email,password);
+      openDashboard(cred.user);
+    }
+  }catch(err){
+    const messages = {
+      "auth/invalid-credential":"E-mail ou senha incorretos.",
+      "auth/email-already-in-use":"Este e-mail já está cadastrado.",
+      "auth/weak-password":"A senha deve ter pelo menos 6 caracteres.",
+      "auth/invalid-email":"Digite um e-mail válido."
+    };
+    authError.textContent = messages[err.code] || "Não foi possível concluir a operação.";
+  }
+};
+
+if(auth) onAuthStateChanged(auth,user => {
+  if(user) openDashboard(user);
+  else closeDashboard();
+});
+
+function openDashboard(user){
+  authScreen.classList.add("hidden");
+  appScreen.classList.remove("hidden");
+  const name = user?.displayName || user?.email?.split("@")[0] || "Usuário";
+  document.getElementById("displayName").textContent = name;
+  document.getElementById("helloName").textContent = name + "!";
+}
+function closeDashboard(){
+  authScreen.classList.remove("hidden");
+  appScreen.classList.add("hidden");
+}
+window.logout = async () => {
+  if(auth) await signOut(auth);
+  closeDashboard();
+};
+</script>
+
+<script>
+const tools = [
+ ["🌐","Buscar IP","Dados de IP"],
+ ["☎️","Dados de Telefone","Informações de telefone"],
+ ["🚗","Veículo","Consulta veicular"],
+ ["▦","CNPJ","Informações de empresas"],
+ ["▣","CPF","Consulta autorizada"],
+ ["●","Buscar Nome","Pesquisa pública"],
+ ["⌯","Redes Sociais","Perfis públicos"],
+ ["✉️","Consultar E-mail","Informações de e-mail"],
+ ["⌖","CEP","Consulta de endereço"],
+ ["▣","CPF Completo","Área autorizada"]
+];
+document.getElementById("tools").innerHTML = tools.map((t,i)=>`
+ <article class="tool" onclick="openTool(${i})">
+  <div class="tool-icon">${t[0]}</div><h3>${t[1]}</h3><p>${t[2]}</p><div class="arrow">→</div>
+ </article>`).join("");
+
+let selectedTool=null;
+window.openTool = i => {
+ selectedTool=tools[i];
+ document.getElementById("modalTitle").textContent=selectedTool[1];
+ document.getElementById("modalDescription").textContent=selectedTool[2]+" — conecte aqui sua API autorizada.";
+ document.getElementById("query").value="";
+ document.getElementById("modal").classList.add("show");
+ setTimeout(()=>document.getElementById("query").focus(),80);
+};
+window.closeModal=()=>document.getElementById("modal").classList.remove("show");
+window.submitQuery=()=>{
+ const q=document.getElementById("query").value.trim();
+ if(!q){toast("Digite um valor para consultar.");return}
+ closeModal();
+ toast("Consulta demonstrativa. Agora conecte a API autorizada de "+selectedTool[1]+".");
+};
+document.getElementById("moreBtn").onclick=()=>document.getElementById("moreMenu").classList.toggle("open");
+window.showFeature=(name)=>{
+ document.getElementById("moreMenu").classList.remove("open");
+ toast(name+" selecionado. Esta função pode ser conectada ao seu backend.");
+};
+document.getElementById("modal").onclick=e=>{if(e.target.id==="modal")closeModal()};
+function toast(msg){const el=document.getElementById("toast");el.textContent=msg;el.style.display="block";clearTimeout(window.tt);window.tt=setTimeout(()=>el.style.display="none",3500)}
+</script>
+</body>
+</html>
