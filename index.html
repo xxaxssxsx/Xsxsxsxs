@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Investigação</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:Arial,sans-serif;color:white;background:radial-gradient(circle at 15% 20%,#70001855,transparent 30%),radial-gradient(circle at 85% 30%,#0055aa55,transparent 30%),#03050b}
+button{cursor:pointer}
+.header{height:72px;display:flex;align-items:center;justify-content:space-between;padding:0 6%;background:#030711dd;border-bottom:1px solid #194d82;position:sticky;top:0;z-index:100}
+.logo{font-weight:bold;letter-spacing:2px}.logo span{color:#ff3157}.nav{display:flex;gap:25px}.nav a{color:#ccd5e5;text-decoration:none}.nav a:hover{color:#42aaff}.login-top{padding:10px 18px;color:white;background:#071a35;border:1px solid #2879c5;border-radius:9px}
+.landing{min-height:calc(100vh - 72px);display:flex;align-items:center;justify-content:center;text-align:center;padding:40px 20px}.hero{max-width:900px}.badge{display:inline-block;padding:8px 15px;border:1px solid #ff315766;border-radius:30px;color:#ff7188;font-size:11px;letter-spacing:2px}
+h1{font-size:clamp(42px,8vw,80px);line-height:.95;margin:25px 0}.blue{color:#38aaff}.red{color:#ff3157}.hero p{max-width:650px;margin:auto;color:#aab7cc;line-height:1.7}
+.buttons{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{padding:14px 25px;border-radius:10px;border:0;color:white;font-weight:bold}.primary{background:linear-gradient(100deg,#ff1648,#b91438,#087cff)}.secondary{background:#08182f;border:1px solid #28629b}
+.auth{display:none;min-height:calc(100vh - 72px);align-items:center;justify-content:center;padding:25px}.card{width:min(450px,100%);padding:30px;border-radius:22px;border:1px solid #286096;background:#071329;box-shadow:0 25px 70px #000}.card h2{margin-top:0}.card p{color:#91a0b8}.field{margin-bottom:15px}.field label{display:block;font-size:12px;margin-bottom:6px;color:#c8d2e4}.field input{width:100%;padding:14px;border-radius:9px;border:1px solid #294d78;background:#020813;color:white;outline:none}.field input:focus{border-color:#168bff}.message{min-height:20px;margin-top:10px;color:#ff6179;font-size:13px}.switch{text-align:center;margin-top:18px;color:#8e9bb1;font-size:13px}.switch button{background:none;border:0;color:#4badff;font-weight:bold}
+.dashboard{display:none;padding:25px 15px 60px}.panel{width:min(1150px,100%);margin:auto}.menu-area{display:flex;justify-content:flex-end;position:relative;margin-bottom:15px}.menu-button{width:45px;height:45px;border-radius:10px;border:1px solid #28639b;background:#07182f;color:white;font-size:24px;line-height:1}.menu-button:hover{border-color:#42aaff;background:#0a2140}.menu{display:none;position:absolute;right:0;top:52px;width:230px;padding:8px;border:1px solid #28639b;border-radius:13px;background:#061329;box-shadow:0 20px 50px #000;z-index:200}.menu.open{display:block}.menu button{width:100%;padding:13px;text-align:left;border:0;border-radius:8px;color:white;background:transparent}.menu button:hover{background:#10274c}.menu .sair{color:#ff6078}
+.welcome{padding:28px;border-radius:20px;border:1px solid #24639b;background:#071329}.welcome h2{font-size:32px;margin:12px 0}.welcome p{color:#9caac0}.credits{margin-top:18px;padding:20px;display:flex;justify-content:space-between;align-items:center;border-radius:18px;border:1px solid #2369a9;background:#07162d}.credit{font-size:28px;color:#42adff;font-weight:bold}.buy{padding:13px 20px}
+.tools{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin-top:20px}.tool{padding:20px;min-height:125px;display:flex;align-items:center;border-radius:17px;border:1px solid #20568e;background:#071329;transition:.2s}.tool:hover{border-color:#42aaff;transform:translateY(-3px);box-shadow:0 10px 30px #0005}.tool h3{margin:0;font-size:16px}
+.history{display:none;margin-top:25px;padding:25px;border-radius:20px;border:1px solid #28639b;background:#071329}.history.show{display:block}.history-header{display:flex;justify-content:space-between;align-items:center;gap:15px}.history h3{margin:0}.history p{color:#8290a7}.history-empty{margin-top:20px;padding:25px;text-align:center;border-radius:12px;background:#040b18;color:#7f8da5}.history-item{margin-top:10px;padding:14px;border-radius:10px;border:1px solid #1c426b;background:#040b18}.history-item strong{display:block}.history-item small{color:#8290a7}
+.consulta-overlay{display:none;position:fixed;inset:0;z-index:500;padding:20px;align-items:center;justify-content:center;background:#000b;backdrop-filter:blur(5px)}.consulta-overlay.show{display:flex}.consulta-card{width:min(850px,100%);max-height:90vh;overflow-y:auto;padding:25px;border-radius:20px;border:1px solid #28639b;background:#071329;box-shadow:0 25px 80px #000}.consulta-header{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px}.consulta-header h2{margin:0}.consulta-close{width:40px;height:40px;border-radius:9px;border:1px solid #28639b;background:#07182f;color:white;font-size:20px}.consulta-input{width:100%;padding:14px;border-radius:9px;border:1px solid #294d78;background:#020813;color:white;outline:none;margin-bottom:12px}.consulta-input:focus{border-color:#168bff}.consulta-actions{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}.consulta-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.consulta-platform{padding:14px;border-radius:10px;border:1px solid #20568e;background:#07182f;color:white;text-align:left}.consulta-platform:hover{border-color:#42aaff;background:#0a2140}.dork-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;margin-bottom:8px;border-radius:10px;border:1px solid #1c426b;background:#040b18}.dork-item span{color:#c7d2e4;font-size:13px;word-break:break-word}.dork-item button{flex-shrink:0;padding:8px 12px;border-radius:8px;border:1px solid #28639b;background:#07182f;color:white}.dork-item button:hover{background:#0a2140}
+@media(max-width:850px){.tools{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.consulta-grid{grid-template-columns:1fr 1fr}}@media(max-width:550px){.nav{display:none}.tools{grid-template-columns:1fr}.credits{align-items:flex-start;flex-direction:column;gap:15px}.welcome h2{font-size:27px}}@media(max-width:450px){.consulta-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="header"><div class="logo">PAINEL <span>INVESTIGAÇÃO</span></div><nav class="nav"><a href="#inicio">Início</a><a href="#sobre">Sobre nós</a><a href="#contato">Contato</a></nav><button class="login-top" type="button" onclick="abrirLogin()">Entrar</button></header>
+
+<section class="landing" id="inicio"><div class="hero"><div class="badge">● SISTEMA ONLINE</div><h1>PAINEL <span class="blue">INVESTIGAÇÃO</span><br><span class="red">INTELIGENTE</span></h1><p>Central moderna para organizar ferramentas e consultas em um único painel.</p><div class="buttons"><button class="btn primary" type="button" onclick="abrirLogin()">Entrar no painel</button><button class="btn secondary" type="button" onclick="abrirCadastro()">Criar minha conta</button></div></div></section>
+
+<section class="auth" id="auth"><div class="card"><div class="logo">PAINEL <span>INVESTIGAÇÃO</span></div><h2 id="tituloAuth">Entrar</h2><p id="subtituloAuth">Entre para acessar seu painel.</p><form id="formAuth"><div class="field" id="campoNome" style="display:none"><label>Nome completo</label><input id="nome" type="text"></div><div class="field" id="campoNascimento" style="display:none"><label>Data de nascimento</label><input id="nascimento" type="date"></div><div class="field"><label>E-mail</label><input id="email" type="email" required></div><div class="field"><label>Senha</label><input id="senha" type="password" minlength="6" required></div><button class="btn primary" style="width:100%" type="submit"><span id="textoBotao">Entrar</span></button><div class="message" id="mensagem"></div></form><div class="switch"><span id="textoTroca">Ainda não possui conta?</span><button type="button" onclick="trocarModo()" id="botaoTroca">Criar conta</button></div></div></section>
+
+<section class="dashboard" id="dashboard"><div class="panel"><div class="menu-area"><button class="menu-button" type="button" onclick="toggleMenu()">⋮</button><div class="menu" id="menu"><button type="button" onclick="mostrarHistorico()">📜 Histórico</button><button type="button" onclick="abrirConsulta('DDD + cidades')">☎️ DDD + cidades</button><button type="button" onclick="abrirConsulta('Rastrear encomenda')">📦 Localização</button><button type="button" class="sair" onclick="sair()">🚪 Sair</button></div></div>
+<div class="welcome"><small>PAINEL ONLINE</small><h2>Olá, <span class="blue" id="nomeUsuario">Usuário</span> 👋</h2><p>Escolha uma ferramenta para começar.</p></div>
+<div class="credits"><div><small>SEUS CRÉDITOS</small><div class="credit" id="creditos">0</div></div><button class="btn primary buy" type="button" onclick="alert('Pagamento será configurado depois.')">💳 Comprar créditos</button></div>
+<div class="tools">
+<div class="tool" onclick="abrirConsulta('Buscar IP')"><h3>📍 Buscar IP</h3></div>
+<div class="tool" onclick="abrirConsulta('Dados de Telefone')"><h3>📞 Dados de Telefone</h3></div>
+<div class="tool" onclick="abrirConsulta('Veículo')"><h3>🚗 Veículo</h3></div>
+<div class="tool" onclick="abrirConsulta('CNPJ')"><h3>🏢 CNPJ</h3></div>
+<div class="tool" onclick="abrirConsulta('CPF')"><h3>📄 CPF</h3></div>
+<div class="tool" onclick="abrirConsulta('Buscar Nome')"><h3>🔎 Buscar Nome</h3></div>
+<div class="tool" onclick="abrirConsulta('Redes Sociais')"><h3>🌐 Redes Sociais</h3></div>
+<div class="tool" onclick="abrirConsulta('Consultar E-mail')"><h3>✉️ Consultar E-mail</h3></div>
+<div class="tool" onclick="abrirConsulta('CEP')"><h3>📮 CEP</h3></div>
+<div class="tool" onclick="abrirConsulta('CPF Completo')"><h3>📄 CPF Completo</h3></div>
+</div>
+<div class="history" id="history"><div class="history-header"><div><h3>📜 Histórico</h3><p>Suas consultas realizadas.</p></div><button class="btn secondary" type="button" onclick="fecharHistorico()">Fechar</button></div><div id="historyList"><div class="history-empty">Nenhuma consulta realizada ainda.</div></div></div>
+</div></section>
+
+<div class="consulta-overlay" id="consultaOverlay"><div class="consulta-card"><div class="consulta-header"><h2 id="consultaTitulo">Consulta</h2><button class="consulta-close" type="button" onclick="fecharConsulta()">×</button></div>
+
+<div id="consultaNome" style="display:none"><p style="color:#91a0b8">Pesquise informações públicas pelo nome usando mecanismos de busca e páginas públicas.</p><input class="consulta-input" id="nomeBusca" type="text" placeholder="Digite o nome completo"><div class="consulta-actions"><button class="btn primary" type="button" onclick="pesquisarNomeGeral()">🔎 Pesquisar</button></div><div id="dorksList"></div></div>
+
+<div id="consultaRedes" style="display:none"><p style="color:#91a0b8">Digite um nome de usuário para abrir a pesquisa pública nas principais plataformas.</p><input class="consulta-input" id="usuarioBusca" type="text" placeholder="Digite o nome de usuário"><div class="consulta-actions"><button class="btn primary" type="button" onclick="abrirTodasRedes()">🌐 Abrir todas</button></div><div class="consulta-grid" id="redesList"></div></div>
+
+<div id="consultaGenerica" style="display:none"><p id="consultaDescricao" style="color:#91a0b8"></p><input class="consulta-input" id="consultaValor" type="text"><div class="consulta-actions"><button class="btn primary" type="button" onclick="executarConsulta()">🔎 Consultar</button></div><pre id="resultadoConsulta" style="white-space:pre-wrap;color:#c7d2e4;background:#040b18;border:1px solid #1c426b;border-radius:10px;padding:14px"></pre></div>
+
+</div></div>
+
+<script>
+let modoCadastro=false;
+let consultaAtual="";
+
+function abrirLogin(){document.querySelector(".landing").style.display="none";document.getElementById("auth").style.display="flex";document.getElementById("dashboard").style.display="none";modoCadastro=false;atualizarTela()}
+function abrirCadastro(){document.querySelector(".landing").style.display="none";document.getElementById("auth").style.display="flex";document.getElementById("dashboard").style.display="none";modoCadastro=true;atualizarTela()}
+function trocarModo(){modoCadastro=!modoCadastro;atualizarTela()}
+function atualizarTela(){document.getElementById("campoNome").style.display=modoCadastro?"block":"none";document.getElementById("campoNascimento").style.display=modoCadastro?"block":"none";document.getElementById("tituloAuth").textContent=modoCadastro?"Criar conta":"Entrar";document.getElementById("subtituloAuth").textContent=modoCadastro?"Preencha seus dados para criar sua conta.":"Entre para acessar seu painel.";document.getElementById("textoBotao").textContent=modoCadastro?"Criar minha conta":"Entrar";document.getElementById("textoTroca").textContent=modoCadastro?"Já possui uma conta?":"Ainda não possui conta?";document.getElementById("botaoTroca").textContent=modoCadastro?"Entrar":"Criar conta"}
+function toggleMenu(){document.getElementById("menu").classList.toggle("open")}
+function mostrarHistorico(){document.getElementById("menu").classList.remove("open");document.getElementById("history").classList.add("show");document.getElementById("history").scrollIntoView({behavior:"smooth",block:"start"})}
+function fecharHistorico(){document.getElementById("history").classList.remove("show")}
+
+async function abrirConsulta(nome){
+document.getElementById("menu").classList.remove("open");
+consultaAtual=nome;
+if(nome==="Buscar Nome"){abrirConsultaNome();return}
+if(nome==="Redes Sociais"){abrirConsultaRedes();return}
+document.getElementById("consultaOverlay").classList.add("show");
+document.getElementById("consultaTitulo").textContent=nome;
+document.getElementById("consultaNome").style.display="none";
+document.getElementById("consultaRedes").style.display="none";
+document.getElementById("consultaGenerica").style.display="block";
+const input=document.getElementById("consultaValor");
+const desc=document.getElementById("consultaDescricao");
+const mapa={
+"Buscar IP":["Digite o endereço IP","Ex.: 8.8.8.8"],
+"Dados de Telefone":["Digite o DDD para consultar informações públicas do DDD","Ex.: 11"],
+"Veículo":["Digite o código FIPE (ou consulte a FIPE oficialmente)","Ex.: código FIPE"],
+"CNPJ":["Digite o CNPJ da empresa","Ex.: 00000000000191"],
+"CPF":["A consulta de CPF não é feita por uma API pública gratuita neste painel. Não há integração de dados pessoais.","CPF"],
+"CPF Completo":["A consulta de CPF não é feita por uma API pública gratuita neste painel. Não há integração de dados pessoais.","CPF"],
+"Consultar E-mail":["Digite um domínio para consultar dados públicos de registro.br","Ex.: exemplo.com.br"],
+"CEP":["Digite o CEP","Ex.: 01001000"],
+"DDD + cidades":["Digite o DDD","Ex.: 11"],
+"Rastrear encomenda":["Digite endereço, cidade ou local para pesquisar no OpenStreetMap","Ex.: Avenida Paulista, São Paulo"]
+};
+const [d,p]=mapa[nome]||["Digite um valor","Digite um valor"];
+desc.textContent=d;input.placeholder=p;input.value="";document.getElementById("resultadoConsulta").textContent="";
+}
+
+async function executarConsulta(){
+const valor=document.getElementById("consultaValor").value.trim();
+if(!valor){alert("Digite um valor.");return}
+const out=document.getElementById("resultadoConsulta");
+if(consultaAtual==="CPF"||consultaAtual==="CPF Completo"){out.textContent="Por segurança, este painel não consulta nem fornece dados pessoais de CPF. Use os canais oficiais da Receita Federal para serviços do seu próprio CPF.";return}
+try{
+let url="",opts={};
+if(consultaAtual==="Buscar IP") url="https://ip-api.com/json/"+encodeURIComponent(valor)+"?fields=status,message,query,country,regionName,city,zip,lat,lon,isp,org,as,proxy,hosting";
+else if(consultaAtual==="CNPJ") url="https://brasilapi.com.br/api/cnpj/v1/"+valor.replace(/\D/g,"");
+else if(consultaAtual==="CEP") url="https://viacep.com.br/ws/"+valor.replace(/\D/g,"")+"/json/";
+else if(consultaAtual==="Dados de Telefone"||consultaAtual==="DDD + cidades") url="https://brasilapi.com.br/api/ddd/v1/"+valor.replace(/\D/g,"");
+else if(consultaAtual==="Rastrear encomenda") url="https://nominatim.openstreetmap.org/search?format=jsonv2&limit=5&q="+encodeURIComponent(valor);
+else if(consultaAtual==="Consultar E-mail"){
+const dominio=valor.replace(/^https?:\/\//,"").split("/")[0];
+url="https://brasilapi.com.br/api/registrobr/v1/"+encodeURIComponent(dominio);
+}else{out.textContent="Esta ferramenta não possui uma API pública gratuita configurada.";return}
+const r=await fetch(url,opts);const d=await r.json();if(!r.ok)throw new Error(d.message||"Consulta não encontrada.");
+out.textContent=JSON.stringify(d,null,2);
+}catch(e){console.error(e);out.textContent="Erro na consulta: "+e.message}
+}
+
+const plataformasDork=[["Google geral",""],["Facebook","site:facebook.com"],["Instagram","site:instagram.com"],["YouTube","site:youtube.com"],["LinkedIn","site:linkedin.com"],["X","site:x.com"],["TikTok","site:tiktok.com"],["Reddit","site:reddit.com"],["GitHub","site:github.com"],["GitLab","site:gitlab.com"],["Pinterest","site:pinterest.com"],["Medium","site:medium.com"],["Quora","site:quora.com"],["Twitch","site:twitch.tv"],["Behance","site:behance.net"],["Dribbble","site:dribbble.com"]];
+function abrirConsultaNome(){document.getElementById("consultaOverlay").classList.add("show");document.getElementById("consultaTitulo").textContent="🔎 Buscar Nome";document.getElementById("consultaNome").style.display="block";document.getElementById("consultaRedes").style.display="none";document.getElementById("consultaGenerica").style.display="none";document.getElementById("nomeBusca").focus();gerarDorks()}
+function gerarDorks(){const nome=document.getElementById("nomeBusca").value.trim(),c=document.getElementById("dorksList");c.innerHTML="";plataformasDork.forEach(item=>{const consulta=nome?'"'+nome+'"'+(item[1]?" "+item[1]:""):'"Nome Sobrenome"'+(item[1]?" "+item[1]:"");const div=document.createElement("div");div.className="dork-item";const span=document.createElement("span");span.textContent=item[0]+": "+consulta;const b=document.createElement("button");b.type="button";b.textContent="Pesquisar";b.onclick=()=>window.open("https://www.google.com/search?q="+encodeURIComponent(consulta),"_blank","noopener,noreferrer");div.append(span,b);c.appendChild(div)})}
+function pesquisarNomeGeral(){const nome=document.getElementById("nomeBusca").value.trim();if(!nome){alert("Digite um nome para pesquisar.");return}window.open("https://www.google.com/search?q="+encodeURIComponent('"'+nome+'"'),"_blank","noopener,noreferrer");gerarDorks()}
+const plataformasRedes=[["Instagram","https://www.instagram.com/"],["Facebook","https://www.facebook.com/"],["TikTok","https://www.tiktok.com/@"],["YouTube","https://www.youtube.com/@"],["X","https://x.com/"],["LinkedIn","https://www.linkedin.com/in/"],["Reddit","https://www.reddit.com/user/"],["Pinterest","https://www.pinterest.com/"],["Telegram","https://t.me/"],["Threads","https://www.threads.net/@"],["Twitch","https://www.twitch.tv/"],["GitHub","https://github.com/"],["GitLab","https://gitlab.com/"],["Medium","https://medium.com/@"],["Quora","https://www.quora.com/profile/"],["Tumblr","https://www.tumblr.com/"],["Bluesky","https://bsky.app/profile/"],["Vimeo","https://vimeo.com/"],["SoundCloud","https://soundcloud.com/"],["Behance","https://www.behance.net/"],["Dribbble","https://dribbble.com/"],["Flickr","https://www.flickr.com/people/"]];
+function abrirConsultaRedes(){document.getElementById("consultaOverlay").classList.add("show");document.getElementById("consultaTitulo").textContent="🌐 Redes Sociais";document.getElementById("consultaNome").style.display="none";document.getElementById("consultaGenerica").style.display="none";document.getElementById("consultaRedes").style.display="block";document.getElementById("usuarioBusca").focus();gerarPlataformas()}
+function gerarPlataformas(){const c=document.getElementById("redesList");c.innerHTML="";plataformasRedes.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="consulta-platform";b.textContent="🌐 "+item[0];b.onclick=()=>abrirRede(item[1],item[0]);c.appendChild(b)})}
+function abrirRede(base,nome){const u=document.getElementById("usuarioBusca").value.trim().replace(/^@/,"");if(!u){alert("Digite um nome de usuário.");return}window.open(base+encodeURIComponent(u),"_blank","noopener,noreferrer")}
+function abrirTodasRedes(){const u=document.getElementById("usuarioBusca").value.trim().replace(/^@/,"");if(!u){alert("Digite um nome de usuário.");return}if(!confirm("Abrir as plataformas em novas abas?"))return;plataformasRedes.forEach(i=>window.open(i[1]+encodeURIComponent(u),"_blank","noopener,noreferrer"))}
+function fecharConsulta(){document.getElementById("consultaOverlay").classList.remove("show")}
+document.getElementById("consultaOverlay").addEventListener("click",e=>{if(e.target===e.currentTarget)fecharConsulta()});
+document.getElementById("nomeBusca").addEventListener("input",gerarDorks);
+function mostrarTelaInicial(){document.querySelector(".landing").style.display="flex";document.getElementById("auth").style.display="none";document.getElementById("dashboard").style.display="none"}
+async function abrirPainel(user){document.querySelector(".landing").style.display="none";document.getElementById("auth").style.display="none";document.getElementById("dashboard").style.display="block";document.getElementById("nomeUsuario").textContent=user.email.split("@")[0];try{const resultado=await getDoc(doc(db,"users",user.uid));if(resultado.exists()){const dados=resultado.data();document.getElementById("nomeUsuario").textContent=dados.name||user.email.split("@")[0];document.getElementById("creditos").textContent=dados.credits??0}}catch(error){console.error("Erro ao carregar dados:",error)}}
+async function sair(){try{if(window.firebaseLogout)await window.firebaseLogout();else location.reload()}catch(error){console.error(error);location.reload()}}
+</script>
+
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+import {getFirestore,doc,setDoc,getDoc} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+const firebaseConfig={apiKey:"AIzaSyCpLGPXTJbpJr5waC7CCLNiX6a5m7KV7Y8",authDomain:"puxar-dados-edf9d.firebaseapp.com",projectId:"puxar-dados-edf9d",storageBucket:"puxar-dados-edf9d.firebasestorage.app",messagingSenderId:"1027365433148",appId:"1:1027365433148:web:5a6b4b05844117828f3839"};
+const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
+document.getElementById("formAuth").addEventListener("submit",async e=>{e.preventDefault();const mensagem=document.getElementById("mensagem");mensagem.style.color="#ff6179";mensagem.textContent="Processando...";const email=document.getElementById("email").value.trim(),senha=document.getElementById("senha").value;try{if(modoCadastro){const nome=document.getElementById("nome").value.trim(),nascimento=document.getElementById("nascimento").value;if(!nome)throw new Error("Digite seu nome.");if(!nascimento)throw new Error("Informe sua data de nascimento.");const resultado=await createUserWithEmailAndPassword(auth,email,senha);await setDoc(doc(db,"users",resultado.user.uid),{name:nome,birthDate:nascimento,email,credits:0,createdAt:new Date().toISOString()});mensagem.style.color="#21e878";mensagem.textContent="Conta criada! Entrando...";await abrirPainel(resultado.user)}else{const resultado=await signInWithEmailAndPassword(auth,email,senha);mensagem.style.color="#21e878";mensagem.textContent="Login realizado! Entrando...";await abrirPainel(resultado.user)}}catch(error){const erros={"auth/email-already-in-use":"Este e-mail já está cadastrado.","auth/invalid-email":"E-mail inválido.","auth/weak-password":"A senha precisa ter pelo menos 6 caracteres.","auth/invalid-credential":"E-mail ou senha incorretos.","auth/user-not-found":"Usuário não encontrado.","auth/wrong-password":"Senha incorreta.","auth/network-request-failed":"Falha de conexão com o Firebase.","auth/too-many-requests":"Muitas tentativas. Aguarde."};mensagem.textContent=erros[error.code]||error.message||"Erro ao entrar."}});
+onAuthStateChanged(auth,user=>{if(!user)mostrarTelaInicial()});
+window.firebaseLogout=async()=>{await signOut(auth);mostrarTelaInicial()};
+</script>
+</body>
+</html>
