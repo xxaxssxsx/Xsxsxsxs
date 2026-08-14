@@ -8,705 +8,343 @@
 <style>
 *{box-sizing:border-box}
 
-:root{
-  --bg:#03050b;
-  --card:#080e1d;
-  --card2:#0d1629;
-  --blue:#087cff;
-  --blue2:#3db0ff;
-  --red:#ff1748;
-  --red2:#ff5575;
-  --text:#f5f7ff;
-  --muted:#8d9ab2;
-  --green:#21e878;
-}
-
-html{scroll-behavior:smooth}
-
 body{
   margin:0;
   min-height:100vh;
-  color:var(--text);
-  font-family:Arial,Helvetica,sans-serif;
+  font-family:Arial,sans-serif;
+  color:white;
   background:
-    radial-gradient(circle at 10% 20%,rgba(255,0,55,.18),transparent 28%),
-    radial-gradient(circle at 90% 25%,rgba(0,100,255,.20),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(255,0,50,.08),transparent 35%),
-    var(--bg);
+    radial-gradient(circle at 15% 20%,#70001855,transparent 30%),
+    radial-gradient(circle at 85% 30%,#0055aa55,transparent 30%),
+    #03050b;
 }
 
-button,input{font:inherit}
-
-button{cursor:pointer}
-
-.hidden{display:none!important}
-
-/* HEADER */
+button{
+  cursor:pointer;
+}
 
 .header{
-  height:74px;
-  position:sticky;
-  top:0;
-  z-index:100;
-  background:rgba(3,7,17,.86);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid rgba(70,120,190,.25);
-}
-
-.header-inner{
-  width:min(1200px,calc(100% - 30px));
-  height:100%;
-  margin:auto;
+  height:72px;
   display:flex;
   align-items:center;
   justify-content:space-between;
+  padding:0 6%;
+  background:#030711dd;
+  border-bottom:1px solid #194d82;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
 
 .logo{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  color:#fff;
-  text-decoration:none;
-}
-
-.logo-icon{
-  width:42px;
-  height:42px;
-  display:grid;
-  place-items:center;
-  border-radius:12px;
-  background:linear-gradient(135deg,rgba(255,20,60,.18),rgba(0,110,255,.2));
-  border:1px solid #287bd0;
-  box-shadow:0 0 22px rgba(0,100,255,.2);
-  font-size:21px;
-}
-
-.logo strong{
-  display:block;
-  font-size:14px;
-  letter-spacing:1.5px;
+  font-weight:bold;
+  letter-spacing:2px;
 }
 
 .logo span{
-  display:block;
-  margin-top:2px;
-  color:var(--red2);
-  font-size:9px;
-  letter-spacing:3px;
+  color:#ff3157;
 }
 
 .nav{
   display:flex;
-  gap:28px;
+  gap:25px;
 }
 
 .nav a{
-  color:#bac6da;
+  color:#ccd5e5;
   text-decoration:none;
-  font-size:13px;
 }
 
-.nav a:hover{color:#fff}
-
-.header-login{
-  padding:10px 17px;
+.login-top{
+  padding:10px 18px;
   color:white;
-  background:#07162d;
-  border:1px solid #28639f;
+  background:#071a35;
+  border:1px solid #2879c5;
   border-radius:9px;
 }
 
-/* LANDING */
-
 .landing{
-  min-height:calc(100vh - 74px);
+  min-height:calc(100vh - 72px);
   display:flex;
-  justify-content:center;
   align-items:center;
-  position:relative;
-  padding:60px 20px;
-  overflow:hidden;
-}
-
-.orb{
-  position:absolute;
-  width:450px;
-  height:450px;
-  border-radius:50%;
-  filter:blur(2px);
-  opacity:.8;
-}
-
-.orb-blue{
-  right:-150px;
-  top:70px;
-  background:radial-gradient(circle,rgba(0,110,255,.24),transparent 68%);
-}
-
-.orb-red{
-  left:-150px;
-  bottom:-150px;
-  background:radial-gradient(circle,rgba(255,20,60,.22),transparent 68%);
+  justify-content:center;
+  text-align:center;
+  padding:40px 20px;
 }
 
 .hero{
-  width:min(1050px,100%);
-  text-align:center;
-  position:relative;
-  z-index:2;
+  max-width:900px;
 }
 
 .badge{
-  display:inline-flex;
-  gap:8px;
-  align-items:center;
+  display:inline-block;
   padding:8px 15px;
+  border:1px solid #ff315766;
   border-radius:30px;
-  border:1px solid rgba(255,50,80,.45);
-  color:#ff7187;
-  background:rgba(255,20,55,.05);
-  font-size:10px;
+  color:#ff7188;
+  font-size:11px;
   letter-spacing:2px;
 }
 
-.badge i{
-  width:7px;
-  height:7px;
-  border-radius:50%;
-  background:var(--green);
-  box-shadow:0 0 10px var(--green);
-}
-
-.hero h1{
-  margin:24px 0 15px;
-  font-size:clamp(42px,8vw,78px);
+h1{
+  font-size:clamp(42px,8vw,80px);
   line-height:.95;
-  letter-spacing:-3px;
+  margin:25px 0;
 }
 
-.blue{color:var(--blue2)}
-.red{color:var(--red2)}
+.blue{
+  color:#38aaff;
+}
+
+.red{
+  color:#ff3157;
+}
 
 .hero p{
   max-width:650px;
-  margin:20px auto;
-  color:#a7b4ca;
+  margin:auto;
+  color:#aab7cc;
   line-height:1.7;
 }
 
-.hero-buttons{
+.buttons{
   display:flex;
   justify-content:center;
   gap:12px;
   flex-wrap:wrap;
-  margin-top:28px;
+  margin-top:30px;
 }
 
 .btn{
-  border:0;
+  padding:14px 25px;
   border-radius:10px;
-  padding:14px 23px;
+  border:0;
   color:white;
   font-weight:bold;
 }
 
 .primary{
-  background:linear-gradient(100deg,var(--red),#bd1439 45%,var(--blue));
-  box-shadow:0 8px 35px rgba(0,80,255,.18);
+  background:linear-gradient(100deg,#ff1648,#b91438,#087cff);
 }
 
 .secondary{
-  background:#07152d;
-  border:1px solid #245589;
+  background:#08182f;
+  border:1px solid #28629b;
 }
 
-.btn:hover{transform:translateY(-1px)}
+/* LOGIN */
 
-/* MÁSCARA CYBER ORIGINAL */
-
-.mask{
-  width:205px;
-  height:240px;
-  position:relative;
-  margin:45px auto 0;
-  transform:perspective(600px) rotateY(-8deg);
-  filter:drop-shadow(0 0 28px rgba(0,100,255,.22));
-}
-
-.mask-face{
-  position:absolute;
-  inset:0;
-  clip-path:polygon(
-    50% 0,
-    88% 17%,
-    100% 60%,
-    76% 100%,
-    24% 100%,
-    0 60%,
-    12% 17%
-  );
-  background:linear-gradient(
-    110deg,
-    #090e18,
-    #17223a 45%,
-    #04070d 46%,
-    #0a1020
-  );
-  border:2px solid #19508d;
-}
-
-.mask-line{
-  position:absolute;
-  left:50%;
-  top:20px;
-  width:2px;
-  height:195px;
-  background:linear-gradient(
-    transparent,
-    var(--blue),
-    var(--red),
-    transparent
-  );
-}
-
-.eye{
-  position:absolute;
-  top:87px;
-  width:42px;
-  height:10px;
-  border-radius:50%;
-  background:#02040a;
-  box-shadow:0 0 10px var(--blue);
-}
-
-.eye.left{left:34px}
-.eye.right{right:34px}
-
-.mask-mouth{
-  position:absolute;
-  left:50%;
-  bottom:45px;
-  width:78px;
-  height:27px;
-  transform:translateX(-50%);
-  border-bottom:4px solid var(--red);
-  border-radius:50%;
-}
-
-/* AUTH */
-
-.auth-page{
-  min-height:100vh;
+.auth{
   display:none;
+  min-height:calc(100vh - 72px);
   align-items:center;
   justify-content:center;
   padding:25px;
 }
 
-.auth-card{
-  width:min(460px,100%);
+.card{
+  width:min(450px,100%);
   padding:30px;
-  border:1px solid #245a91;
-  border-radius:23px;
-  background:linear-gradient(145deg,#09152b,#030816);
-  box-shadow:0 25px 90px rgba(0,0,0,.55);
+  border-radius:22px;
+  border:1px solid #286096;
+  background:#071329;
+  box-shadow:0 25px 70px #000;
 }
 
-.auth-card h2{margin:0 0 7px;font-size:29px}
-.auth-card > p{color:var(--muted);margin:0 0 23px}
+.card h2{
+  margin-top:0;
+}
 
-.field{margin-bottom:14px}
+.card p{
+  color:#91a0b8;
+}
+
+.field{
+  margin-bottom:15px;
+}
 
 .field label{
   display:block;
-  color:#c8d2e5;
   font-size:12px;
   margin-bottom:6px;
+  color:#c8d2e4;
 }
 
 .field input{
   width:100%;
   padding:14px;
-  border-radius:10px;
-  border:1px solid #294b76;
-  outline:none;
+  border-radius:9px;
+  border:1px solid #294d78;
+  background:#020813;
   color:white;
-  background:#020814;
+  outline:none;
 }
 
 .field input:focus{
-  border-color:var(--blue);
-  box-shadow:0 0 0 3px rgba(0,100,255,.1);
+  border-color:#168bff;
 }
 
 .message{
   min-height:20px;
   margin-top:10px;
+  color:#ff6179;
   font-size:13px;
-  color:#ff6079;
 }
 
 .switch{
-  margin-top:18px;
   text-align:center;
-  color:#9aa7bd;
+  margin-top:18px;
+  color:#8e9bb1;
   font-size:13px;
 }
 
 .switch button{
-  border:0;
   background:none;
-  color:#4eaeff;
+  border:0;
+  color:#4badff;
   font-weight:bold;
 }
 
-/* DASHBOARD */
+/* PAINEL */
 
 .dashboard{
   display:none;
-  min-height:100vh;
+  padding:30px 15px;
 }
 
-.dashboard-main{
-  width:min(1200px,calc(100% - 30px));
+.panel{
+  width:min(1150px,100%);
   margin:auto;
-  padding:30px 0 60px;
 }
 
 .welcome{
-  padding:30px;
-  border-radius:23px;
-  border:1px solid #23588f;
-  border-right-color:var(--red);
-  background:
-    radial-gradient(circle at 90% 50%,rgba(0,100,255,.16),transparent 35%),
-    radial-gradient(circle at 5% 90%,rgba(255,20,55,.12),transparent 30%),
-    rgba(6,14,30,.94);
-}
-
-.welcome small{
-  color:#ff6078;
-  letter-spacing:2px;
+  padding:28px;
+  border-radius:20px;
+  border:1px solid #24639b;
+  background:#071329;
 }
 
 .welcome h2{
-  margin:9px 0 7px;
-  font-size:38px;
+  font-size:32px;
 }
 
 .welcome p{
-  margin:0;
-  color:#a9b5ca;
+  color:#9caac0;
 }
-
-.user-info{
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  margin-top:16px;
-}
-
-.pill{
-  padding:8px 12px;
-  border:1px solid #28476d;
-  border-radius:20px;
-  background:#07142b;
-  color:#bac6d9;
-  font-size:12px;
-}
-
-/* CREDITOS */
 
 .credits{
   margin-top:18px;
-  padding:20px 23px;
+  padding:20px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  gap:20px;
-  border-radius:19px;
-  border:1px solid rgba(0,120,255,.4);
-  background:linear-gradient(
-    100deg,
-    rgba(0,70,180,.13),
-    rgba(255,20,55,.07)
-  );
+  border-radius:18px;
+  border:1px solid #2369a9;
+  background:#07162d;
 }
 
-.credit-label{
-  color:#8d9bb5;
-  font-size:11px;
-}
-
-.credit-value{
-  margin-top:3px;
-  font-size:30px;
-  font-weight:900;
-  color:#54b2ff;
-}
-
-.buy{
-  padding:12px 18px;
-  color:white;
+.credit{
+  font-size:28px;
+  color:#42adff;
   font-weight:bold;
-  border-radius:10px;
-  border:1px solid #ff3657;
-  background:linear-gradient(90deg,#8c1028,#dd1c42);
-}
-
-/* TOOLS */
-
-.section-title{
-  margin:30px 0 15px;
-}
-
-.section-title h3{
-  margin:0;
-  font-size:20px;
-}
-
-.section-title p{
-  margin:5px 0 0;
-  color:#7f8da7;
-  font-size:13px;
 }
 
 .tools{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:15px;
+  margin-top:20px;
 }
 
 .tool{
-  min-height:175px;
-  padding:20px 17px;
-  position:relative;
-  overflow:hidden;
-  border-radius:18px;
-  border:1px solid #20548d;
-  background:linear-gradient(145deg,#09152b,#030916);
-  transition:.2s;
-  cursor:pointer;
-}
-
-.tool:nth-child(3n+1){
-  border-color:#8d1b37;
+  padding:20px;
+  min-height:150px;
+  border-radius:17px;
+  border:1px solid #20568e;
+  background:#071329;
 }
 
 .tool:hover{
-  transform:translateY(-4px);
-  border-color:#48a9ff;
-  box-shadow:0 15px 35px rgba(0,0,0,.35);
+  border-color:#42aaff;
+  transform:translateY(-3px);
 }
 
-.icon{
-  width:54px;
-  height:54px;
-  display:grid;
-  place-items:center;
-  border-radius:14px;
-  background:#071a36;
-  border:1px solid #2277c7;
-  color:#56b4ff;
-  font-size:24px;
-  margin-bottom:13px;
-}
-
-.tool:nth-child(3n+1) .icon{
-  background:#270c18;
-  border-color:#ad2845;
-  color:#ff5b76;
-}
-
-.tool h4{
-  margin:0 0 7px;
+.tool h3{
   font-size:16px;
 }
 
 .tool p{
-  margin:0;
-  color:#8491a9;
+  color:#8795ac;
   font-size:12px;
-  line-height:1.45;
 }
 
 .price{
-  position:absolute;
-  right:13px;
-  top:13px;
-  padding:5px 8px;
-  border-radius:7px;
-  background:#061c35;
-  color:#5db5ff;
-  font-size:10px;
-  font-weight:bold;
+  color:#55b5ff;
+  font-size:11px;
 }
 
 .free{
-  color:#26e87c;
-  background:#062418;
+  color:#28e87d;
 }
 
-.more-area{
-  display:flex;
-  justify-content:flex-end;
-  margin-top:20px;
-  position:relative;
+@media(max-width:850px){
+  .tools{
+    grid-template-columns:repeat(2,1fr);
+  }
 }
 
-.more{
-  width:44px;
-  height:44px;
-  border-radius:11px;
-  border:1px solid #275b91;
-  background:#07152d;
-  color:white;
-  font-size:23px;
-}
+@media(max-width:550px){
+  .nav{
+    display:none;
+  }
 
-.menu{
-  display:none;
-  position:absolute;
-  right:0;
-  top:52px;
-  width:220px;
-  padding:8px;
-  border-radius:13px;
-  border:1px solid #28598e;
-  background:#061329;
-  box-shadow:0 20px 50px #000;
-  z-index:20;
-}
+  .tools{
+    grid-template-columns:1fr;
+  }
 
-.menu.open{display:block}
-
-.menu button{
-  width:100%;
-  padding:11px;
-  text-align:left;
-  border:0;
-  border-radius:8px;
-  background:none;
-  color:white;
-}
-
-.menu button:hover{background:#10274c}
-
-.logout{color:#ff6378!important}
-
-/* MODAIS */
-
-.modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  z-index:500;
-  place-items:center;
-  padding:18px;
-  background:rgba(0,0,0,.75);
-  backdrop-filter:blur(9px);
-}
-
-.modal.show{display:grid}
-
-.modal-card{
-  width:min(480px,100%);
-  padding:27px;
-  border-radius:20px;
-  border:1px solid #2b639c;
-  background:#07142c;
-  box-shadow:0 25px 80px #000;
-}
-
-.modal-card h3{margin:0 0 7px}
-.modal-card p{color:#8e9bb3;font-size:13px}
-
-.modal-card input{
-  width:100%;
-  padding:14px;
-  color:white;
-  background:#020814;
-  border:1px solid #294b76;
-  border-radius:10px;
-  outline:none;
-}
-
-.modal-buttons{
-  display:flex;
-  justify-content:flex-end;
-  gap:9px;
-  margin-top:15px;
-}
-
-/* RESPONSIVE */
-
-@media(max-width:1000px){
-  .tools{grid-template-columns:repeat(3,1fr)}
-}
-
-@media(max-width:700px){
-  .nav{display:none}
-  .tools{grid-template-columns:repeat(2,1fr)}
-  .welcome h2{font-size:29px}
   .credits{
     align-items:flex-start;
     flex-direction:column;
+    gap:15px;
   }
-}
-
-@media(max-width:480px){
-  .tools{grid-template-columns:1fr}
-  .hero h1{letter-spacing:-2px}
-  .mask{
-    transform:scale(.8) perspective(600px) rotateY(-8deg);
-  }
-  .auth-card{padding:23px}
 }
 </style>
 </head>
 
 <body>
 
-<!-- HEADER -->
-
 <header class="header">
-  <div class="header-inner">
 
-    <a href="#inicio" class="logo">
-      <div class="logo-icon">◈</div>
-      <div>
-        <strong>PAINEL</strong>
-        <span>INVESTIGAÇÃO</span>
-      </div>
-    </a>
-
-    <nav class="nav">
-      <a href="#inicio">Início</a>
-      <a href="#sobre">Sobre nós</a>
-      <a href="#contato">Contato</a>
-    </nav>
-
-    <button class="header-login" id="headerLogin">
-      Entrar
-    </button>
-
+  <div class="logo">
+    PAINEL <span>INVESTIGAÇÃO</span>
   </div>
+
+  <nav class="nav">
+    <a href="#inicio">Início</a>
+    <a href="#sobre">Sobre nós</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <button
+    class="login-top"
+    type="button"
+    onclick="abrirLogin()"
+  >
+    Entrar
+  </button>
+
 </header>
 
 
-<!-- CAPA -->
-
-<section class="landing" id="inicio">
-
-  <div class="orb orb-blue"></div>
-  <div class="orb orb-red"></div>
+<section
+  class="landing"
+  id="inicio"
+>
 
   <div class="hero">
 
     <div class="badge">
-      <i></i>
-      SISTEMA ONLINE
+      ● SISTEMA ONLINE
     </div>
 
     <h1>
@@ -717,130 +355,161 @@ button{cursor:pointer}
     </h1>
 
     <p>
-      Uma central moderna para organizar ferramentas,
-      consultas e informações públicas em uma única interface.
+      Central moderna para organizar ferramentas e
+      consultas em um único painel.
     </p>
 
-    <div class="hero-buttons">
-      <button class="btn primary" id="heroLogin">
+    <div class="buttons">
+
+      <button
+        class="btn primary"
+        type="button"
+        onclick="abrirLogin()"
+      >
         Entrar no painel
       </button>
 
-      <button class="btn secondary" id="heroRegister">
+      <button
+        class="btn secondary"
+        type="button"
+        onclick="abrirCadastro()"
+      >
         Criar minha conta
       </button>
+
     </div>
 
-    <div class="mask">
-      <div class="mask-face">
-        <div class="mask-line"></div>
-        <div class="eye left"></div>
-        <div class="eye right"></div>
-        <div class="mask-mouth"></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-
-<!-- SOBRE -->
-
-<section id="sobre"
-style="width:min(1000px,calc(100% - 30px));margin:auto;padding:70px 0;">
-
-  <div class="welcome">
-    <small>SOBRE NÓS</small>
-    <h2>Tecnologia em um só lugar.</h2>
-    <p>
-      Um painel moderno para organizar ferramentas
-      e consultas autorizadas.
-    </p>
   </div>
 
 </section>
 
 
-<!-- CONTATO -->
+<!-- LOGIN -->
 
-<section id="contato"
-style="width:min(1000px,calc(100% - 30px));margin:auto;padding:0 0 80px;">
+<section
+  class="auth"
+  id="auth"
+>
 
-  <div class="welcome">
-    <small>CONTATO</small>
-    <h2>Fale conosco.</h2>
-    <p>
-      Configure aqui seu canal oficial de atendimento.
-    </p>
-  </div>
+  <div class="card">
 
-</section>
-
-
-<!-- LOGIN/CADASTRO -->
-
-<section class="auth-page" id="authPage">
-
-  <div class="auth-card">
-
-    <div class="logo" style="margin-bottom:24px">
-      <div class="logo-icon">◈</div>
-      <div>
-        <strong>PAINEL</strong>
-        <span>INVESTIGAÇÃO</span>
-      </div>
+    <div class="logo">
+      PAINEL <span>INVESTIGAÇÃO</span>
     </div>
 
-    <h2 id="authTitle">Entrar</h2>
+    <h2 id="tituloAuth">
+      Entrar
+    </h2>
 
-    <p id="authSubtitle">
+    <p id="subtituloAuth">
       Entre para acessar seu painel.
     </p>
 
-    <form id="authForm">
+    <form id="formAuth">
 
-      <div class="field" id="nameField" style="display:none">
+      <div
+        class="field"
+        id="campoNome"
+        style="display:none"
+      >
         <label>Nome completo</label>
-        <input id="name" type="text" autocomplete="name">
+
+        <input
+          id="nome"
+          type="text"
+        >
       </div>
 
-      <div class="field" id="birthField" style="display:none">
+
+      <div
+        class="field"
+        id="campoNascimento"
+        style="display:none"
+      >
         <label>Data de nascimento</label>
-        <input id="birth" type="date">
+
+        <input
+          id="nascimento"
+          type="date"
+        >
       </div>
 
+
       <div class="field">
+
         <label>E-mail</label>
-        <input id="email" type="email" required autocomplete="email">
+
+        <input
+          id="email"
+          type="email"
+          required
+        >
+
       </div>
+
 
       <div class="field">
+
         <label>Senha</label>
-        <input id="password" type="password" minlength="6" required>
+
+        <input
+          id="senha"
+          type="password"
+          minlength="6"
+          required
+        >
+
       </div>
 
-      <button class="btn primary" style="width:100%" id="authButton">
-        Entrar
+
+      <button
+        class="btn primary"
+        style="width:100%"
+        type="submit"
+      >
+        <span id="textoBotao">
+          Entrar
+        </span>
       </button>
 
-      <div class="message" id="authMessage"></div>
+
+      <div
+        class="message"
+        id="mensagem"
+      ></div>
 
     </form>
 
+
     <div class="switch">
-      <span id="switchText">Ainda não tem uma conta?</span>
-      <button id="switchAuth">Criar conta</button>
+
+      <span id="textoTroca">
+        Ainda não possui conta?
+      </span>
+
+      <button
+        type="button"
+        onclick="trocarModo()"
+        id="botaoTroca"
+      >
+        Criar conta
+      </button>
+
     </div>
 
   </div>
+
 </section>
 
 
 <!-- PAINEL -->
 
-<section class="dashboard" id="dashboard">
+<section
+  class="dashboard"
+  id="dashboard"
+>
 
-  <div class="dashboard-main">
+  <div class="panel">
 
     <div class="welcome">
 
@@ -848,81 +517,122 @@ style="width:min(1000px,calc(100% - 30px));margin:auto;padding:0 0 80px;">
 
       <h2>
         Olá,
-        <span id="userName" class="blue">
+        <span
+          class="blue"
+          id="nomeUsuario"
+        >
           Usuário
         </span>
         👋
       </h2>
 
       <p>
-        Selecione uma ferramenta para iniciar.
+        Escolha uma ferramenta para começar.
       </p>
-
-      <div class="user-info">
-
-        <div class="pill">
-          ✉️ <span id="userEmail">—</span>
-        </div>
-
-        <div class="pill">
-          🎂 <span id="userBirth">—</span>
-        </div>
-
-      </div>
 
     </div>
 
 
-    <!-- CRÉDITOS SOMENTE AQUI -->
-
     <div class="credits">
 
       <div>
-        <div class="credit-label">
-          SEUS CRÉDITOS
-        </div>
 
-        <div class="credit-value" id="creditBalance">
+        <small>
+          SEUS CRÉDITOS
+        </small>
+
+        <div
+          class="credit"
+          id="creditos"
+        >
           0
         </div>
+
       </div>
 
-      <button class="buy" id="buyCredits">
+      <button
+        class="btn primary"
+        type="button"
+        onclick="alert('Pagamento será configurado depois.')"
+      >
         💳 Comprar créditos
       </button>
 
     </div>
 
 
-    <div class="section-title">
-      <h3>Ferramentas</h3>
-      <p>Escolha uma opção abaixo.</p>
-    </div>
+    <div class="tools">
 
+      <div class="tool">
+        <div class="price">R$ 0,50</div>
+        <h3>🌐 Buscar IP</h3>
+        <p>Consulta de informações públicas de IP.</p>
+      </div>
 
-    <div class="tools" id="tools"></div>
+      <div class="tool">
+        <div class="price">R$ 1,00</div>
+        <h3>📞 Dados de Telefone</h3>
+        <p>Consulta por fonte autorizada.</p>
+      </div>
 
+      <div class="tool">
+        <div class="price">R$ 1,00</div>
+        <h3>🚗 Veículo</h3>
+        <p>Consulta veicular autorizada.</p>
+      </div>
 
-    <div class="more-area">
+      <div class="tool">
+        <div class="price">R$ 1,00</div>
+        <h3>🏢 CNPJ</h3>
+        <p>Informações públicas de empresas.</p>
+      </div>
 
-      <button class="more" id="moreBtn">
-        ⋮
-      </button>
+      <div class="tool">
+        <div class="price">R$ 1,00</div>
+        <h3>🪪 CPF</h3>
+        <p>Consulta por fonte autorizada.</p>
+      </div>
 
-      <div class="menu" id="moreMenu">
+      <div class="tool">
+        <div class="price">R$ 1,00</div>
+        <h3>👤 Buscar Nome</h3>
+        <p>Pesquisa em fontes autorizadas.</p>
+      </div>
 
-        <button onclick="openTool('DDD + cidades')">
-          ☎️ DDD + cidades
-        </button>
+      <div class="tool">
+        <div class="price">3 créditos</div>
+        <h3>🔗 Redes Sociais</h3>
+        <p>Consulta de perfis públicos.</p>
+      </div>
 
-        <button onclick="openTool('Rastrear encomenda')">
-          📦 Rastrear encomenda
-        </button>
+      <div class="tool">
+        <div class="price">R$ 1,00</div>
+        <h3>✉️ Consultar E-mail</h3>
+        <p>Consulta de informações permitidas.</p>
+      </div>
 
-        <button class="logout" onclick="logout()">
-          🚪 Sair
-        </button>
+      <div class="tool">
+        <div class="price">R$ 0,50</div>
+        <h3>📍 CEP</h3>
+        <p>Consulta de endereço por CEP.</p>
+      </div>
 
+      <div class="tool">
+        <div class="price">3 créditos</div>
+        <h3>🪪 CPF Completo</h3>
+        <p>Área para integração autorizada.</p>
+      </div>
+
+      <div class="tool">
+        <div class="price">R$ 0,50</div>
+        <h3>☎️ DDD + cidades</h3>
+        <p>Consulta de DDD e cidades.</p>
+      </div>
+
+      <div class="tool">
+        <div class="price free">GRÁTIS</div>
+        <h3>📦 Rastrear encomenda</h3>
+        <p>Consulta de rastreamento.</p>
       </div>
 
     </div>
@@ -932,75 +642,90 @@ style="width:min(1000px,calc(100% - 30px));margin:auto;padding:0 0 80px;">
 </section>
 
 
-<!-- MODAL CONSULTA -->
+<script>
 
-<div class="modal" id="queryModal">
+/*
+  ESTES BOTÕES FUNCIONAM INDEPENDENTEMENTE
+  DO FIREBASE.
+*/
 
-  <div class="modal-card">
-
-    <h3 id="modalTitle">Consulta</h3>
-
-    <p id="modalText">
-      Informe o dado para consulta.
-    </p>
-
-    <input id="queryInput" placeholder="Digite aqui...">
-
-    <div class="modal-buttons">
-
-      <button class="btn secondary" onclick="closeModal()">
-        Cancelar
-      </button>
-
-      <button class="btn primary" onclick="runQuery()">
-        Consultar
-      </button>
-
-    </div>
-
-  </div>
-</div>
+let modoCadastro = false;
 
 
-<!-- MODAL CRÉDITOS -->
+function abrirLogin(){
 
-<div class="modal" id="creditModal">
+  document.querySelector(".landing").style.display = "none";
 
-  <div class="modal-card">
+  document.getElementById("auth").style.display = "flex";
 
-    <h3>💳 Comprar créditos</h3>
+  document.getElementById("dashboard").style.display = "none";
 
-    <p>
-      A área de pagamento está preparada para receber
-      posteriormente a integração com seu gateway.
-    </p>
+  modoCadastro = false;
 
-    <button class="btn secondary"
-    style="width:100%;margin-top:8px"
-    onclick="selectPlan(10)">
-      10 créditos
-    </button>
+  atualizarTela();
 
-    <button class="btn secondary"
-    style="width:100%;margin-top:8px"
-    onclick="selectPlan(50)">
-      50 créditos
-    </button>
+}
 
-    <button class="btn primary"
-    style="width:100%;margin-top:8px"
-    onclick="selectPlan(100)">
-      100 créditos
-    </button>
 
-    <div style="text-align:right;margin-top:15px">
-      <button class="btn secondary" onclick="closeCreditModal()">
-        Fechar
-      </button>
-    </div>
+function abrirCadastro(){
 
-  </div>
-</div>
+  document.querySelector(".landing").style.display = "none";
+
+  document.getElementById("auth").style.display = "flex";
+
+  document.getElementById("dashboard").style.display = "none";
+
+  modoCadastro = true;
+
+  atualizarTela();
+
+}
+
+
+function trocarModo(){
+
+  modoCadastro = !modoCadastro;
+
+  atualizarTela();
+
+}
+
+
+function atualizarTela(){
+
+  document.getElementById("campoNome").style.display =
+    modoCadastro ? "block" : "none";
+
+  document.getElementById("campoNascimento").style.display =
+    modoCadastro ? "block" : "none";
+
+
+  document.getElementById("tituloAuth").textContent =
+    modoCadastro ? "Criar conta" : "Entrar";
+
+
+  document.getElementById("subtituloAuth").textContent =
+    modoCadastro
+      ? "Preencha seus dados para criar sua conta."
+      : "Entre para acessar seu painel.";
+
+
+  document.getElementById("textoBotao").textContent =
+    modoCadastro ? "Criar minha conta" : "Entrar";
+
+
+  document.getElementById("textoTroca").textContent =
+    modoCadastro
+      ? "Já possui uma conta?"
+      : "Ainda não possui conta?";
+
+
+  document.getElementById("botaoTroca").textContent =
+    modoCadastro ? "Entrar" : "Criar conta";
+
+}
+
+</script>
 
 
 <!-- FIREBASE -->
@@ -1014,7 +739,6 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signOut,
   onAuthStateChanged
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -1047,140 +771,192 @@ const firebaseConfig = {
 
   appId:
     "1:1027365433148:web:5a6b4b05844117828f3839"
+
 };
 
 
 const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
+
 const db = getFirestore(app);
 
 
-const landing =
-  document.querySelector(".landing");
+document
+  .getElementById("formAuth")
+  .addEventListener("submit", async function(e){
 
-const authPage =
-  document.getElementById("authPage");
-
-const dashboard =
-  document.getElementById("dashboard");
-
-const authForm =
-  document.getElementById("authForm");
-
-const authTitle =
-  document.getElementById("authTitle");
-
-const authSubtitle =
-  document.getElementById("authSubtitle");
-
-const authButton =
-  document.getElementById("authButton");
-
-const authMessage =
-  document.getElementById("authMessage");
-
-const nameField =
-  document.getElementById("nameField");
-
-const birthField =
-  document.getElementById("birthField");
-
-const switchAuth =
-  document.getElementById("switchAuth");
-
-const switchText =
-  document.getElementById("switchText");
+    e.preventDefault();
 
 
-let registerMode = false;
+    const mensagem =
+      document.getElementById("mensagem");
 
 
-/* LOGIN */
-
-function showLogin(){
-
-  landing.style.display = "none";
-  authPage.style.display = "flex";
-  dashboard.style.display = "none";
-
-}
+    mensagem.textContent =
+      "Processando...";
 
 
-/* CADASTRO */
+    const email =
+      document.getElementById("email").value.trim();
 
-document.getElementById("heroRegister").onclick = () => {
-
-  registerMode = true;
-  updateAuthUI();
-  showLogin();
-
-};
+    const senha =
+      document.getElementById("senha").value;
 
 
-/* LOGIN */
+    try{
 
-document.getElementById("heroLogin").onclick = showLogin;
-document.getElementById("headerLogin").onclick = showLogin;
+      if(modoCadastro){
 
+        const nome =
+          document.getElementById("nome").value.trim();
 
-/* TROCAR LOGIN/CADASTRO */
-
-switchAuth.onclick = () => {
-
-  registerMode = !registerMode;
-  updateAuthUI();
-
-};
+        const nascimento =
+          document.getElementById("nascimento").value;
 
 
-function updateAuthUI(){
+        if(!nome)
+          throw new Error("Digite seu nome.");
 
-  nameField.style.display =
-    registerMode ? "block" : "none";
-
-  birthField.style.display =
-    registerMode ? "block" : "none";
-
-  authTitle.textContent =
-    registerMode ? "Criar conta" : "Entrar";
-
-  authSubtitle.textContent =
-    registerMode
-      ? "Preencha seus dados para criar sua conta."
-      : "Entre para acessar seu painel.";
-
-  authButton.textContent =
-    registerMode
-      ? "Criar minha conta"
-      : "Entrar";
-
-  switchText.textContent =
-    registerMode
-      ? "Já possui uma conta?"
-      : "Ainda não tem uma conta?";
-
-  switchAuth.textContent =
-    registerMode
-      ? "Entrar"
-      : "Criar conta";
-
-  authMessage.textContent = "";
-
-}
+        if(!nascimento)
+          throw new Error("Informe sua data de nascimento.");
 
 
-/* FORMULÁRIO */
-
-authForm.onsubmit = async (event) => {
-
-  event.preventDefault();
-
-  authMessage.style.color = "#ff6079";
-  authMessage.textContent = "Processando...";
+        const resultado =
+          await createUserWithEmailAndPassword(
+            auth,
+            email,
+            senha
+          );
 
 
-  const email =
-    document.getElementById("email").value.trim();
+        await setDoc(
+          doc(db,"users",resultado.user.uid),
+          {
+            name:nome,
+            birthDate:nascimento,
+            email:email,
+            credits:0
+          }
+        );
 
-  const password =
-    document.getElementById("password").
+
+        mensagem.style.color =
+          "#21e878";
+
+        mensagem.textContent =
+          "Conta criada!";
+
+
+      }else{
+
+        await signInWithEmailAndPassword(
+          auth,
+          email,
+          senha
+        );
+
+      }
+
+    }catch(error){
+
+      console.error(error);
+
+      mensagem.style.color =
+        "#ff6179";
+
+
+      const erros = {
+
+        "auth/email-already-in-use":
+          "Este e-mail já está cadastrado.",
+
+        "auth/invalid-email":
+          "E-mail inválido.",
+
+        "auth/weak-password":
+          "A senha precisa ter pelo menos 6 caracteres.",
+
+        "auth/invalid-credential":
+          "E-mail ou senha incorretos.",
+
+        "auth/user-not-found":
+          "Usuário não encontrado.",
+
+        "auth/wrong-password":
+          "Senha incorreta."
+
+      };
+
+
+      mensagem.textContent =
+        erros[error.code] ||
+        error.message ||
+        "Erro ao entrar.";
+
+    }
+
+});
+
+
+/* LOGIN AUTOMÁTICO */
+
+onAuthStateChanged(
+  auth,
+  async function(user){
+
+    if(!user)
+      return;
+
+
+    document.querySelector(".landing").style.display =
+      "none";
+
+    document.getElementById("auth").style.display =
+      "none";
+
+    document.getElementById("dashboard").style.display =
+      "block";
+
+
+    document.getElementById("nomeUsuario").textContent =
+      user.email.split("@")[0];
+
+
+    try{
+
+      const resultado =
+        await getDoc(
+          doc(db,"users",user.uid)
+        );
+
+
+      if(resultado.exists()){
+
+        const dados =
+          resultado.data();
+
+
+        document.getElementById("nomeUsuario")
+          .textContent =
+          dados.name || user.email.split("@")[0];
+
+
+        document.getElementById("creditos")
+          .textContent =
+          dados.credits ?? 0;
+
+      }
+
+    }catch(error){
+
+      console.error(error);
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
