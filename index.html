@@ -1,399 +1,1333 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel Investigação</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Painel Investigação</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<style>
+*{
+  box-sizing:border-box;
+}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #050814;
-      color: white;
-      min-height: 100vh;
-    }
+:root{
+  --bg:#02040b;
+  --panel:#070d1c;
+  --panel2:#0b1428;
+  --blue:#087cff;
+  --blue2:#35a7ff;
+  --red:#ff1645;
+  --red2:#ff4967;
+  --white:#f5f7ff;
+  --muted:#9caac4;
+  --green:#24e878;
+}
 
-    .container {
-      width: 90%;
-      max-width: 450px;
-      margin: 60px auto;
-    }
+html{
+  scroll-behavior:smooth;
+}
 
-    .logo {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--white);
+  background:
+    radial-gradient(circle at 10% 20%,rgba(255,0,55,.20),transparent 27%),
+    radial-gradient(circle at 90% 30%,rgba(0,90,255,.22),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(255,0,55,.10),transparent 35%),
+    #02040b;
+  overflow-x:hidden;
+}
 
-    .logo h1 {
-      margin: 0;
-      color: white;
-    }
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-2;
+  background:
+    linear-gradient(115deg,transparent 40%,rgba(0,105,255,.06) 41%,transparent 42%),
+    linear-gradient(65deg,transparent 55%,rgba(255,20,60,.05) 56%,transparent 57%);
+  background-size:260px 260px;
+  animation:bgmove 18s linear infinite;
+}
 
-    .logo span {
-      color: #ff2447;
-    }
+body:after{
+  content:"";
+  position:fixed;
+  width:700px;
+  height:700px;
+  left:50%;
+  top:45%;
+  transform:translate(-50%,-50%);
+  z-index:-3;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,
+      rgba(0,100,255,.08) 0,
+      rgba(255,0,45,.05) 35%,
+      transparent 70%);
+  filter:blur(10px);
+}
 
-    .card {
-      background: #0b1024;
-      border: 1px solid #214cff;
-      border-radius: 20px;
-      padding: 30px;
-      box-shadow: 0 0 30px rgba(0, 70, 255, .2);
-    }
+@keyframes bgmove{
+  from{background-position:0 0,0 0}
+  to{background-position:260px 260px,-260px 260px}
+}
 
-    input {
-      width: 100%;
-      padding: 15px;
-      margin: 8px 0;
-      border-radius: 10px;
-      border: 1px solid #283b78;
-      background: #050814;
-      color: white;
-      font-size: 16px;
-    }
+button,
+input{
+  font:inherit;
+}
 
-    button {
-      width: 100%;
-      padding: 15px;
-      margin-top: 12px;
-      border: 0;
-      border-radius: 10px;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
+.hidden{
+  display:none!important;
+}
 
-    .entrar {
-      background: linear-gradient(90deg, #174eff, #2875ff);
-    }
+/* =========================
+   CABEÇALHO
+========================= */
 
-    .criar {
-      background: linear-gradient(90deg, #ff163f, #ff315a);
-    }
+.header{
+  width:100%;
+  height:76px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  border-bottom:1px solid rgba(60,105,180,.25);
+  background:rgba(2,6,16,.82);
+  backdrop-filter:blur(18px);
+}
 
-    #mensagem {
-      text-align: center;
-      margin-top: 15px;
-      color: #ff6078;
-    }
+.header-inner{
+  width:min(1200px,calc(100% - 30px));
+  height:100%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
 
-    #painel {
-      display: none;
-    }
+.logo{
+  display:flex;
+  align-items:center;
+  gap:11px;
+  text-decoration:none;
+  color:white;
+}
 
-    .ferramentas {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 15px;
-      margin-top: 25px;
-    }
+.logo-icon{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  border:1px solid var(--blue);
+  background:
+    linear-gradient(135deg,rgba(255,20,55,.20),rgba(0,100,255,.18));
+  box-shadow:
+    0 0 18px rgba(0,110,255,.25),
+    inset 0 0 20px rgba(255,20,55,.10);
+  font-size:22px;
+}
 
-    .ferramenta {
-      padding: 25px 10px;
-      border-radius: 15px;
-      background: #0b1024;
-      border: 1px solid #214cff;
-      text-align: center;
-    }
+.logo-text strong{
+  display:block;
+  font-size:14px;
+  letter-spacing:1.5px;
+}
 
-    .sair {
-      background: #e51b3e;
-      margin-top: 25px;
-    }
-  </style>
+.logo-text span{
+  color:var(--red2);
+  font-size:10px;
+  letter-spacing:3px;
+}
+
+.nav{
+  display:flex;
+  gap:28px;
+}
+
+.nav a{
+  color:#cbd5ea;
+  text-decoration:none;
+  font-size:13px;
+  transition:.2s;
+}
+
+.nav a:hover{
+  color:white;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.header-login{
+  padding:10px 17px;
+  border-radius:9px;
+  border:1px solid #2367b7;
+  background:#07152c;
+  color:white;
+  cursor:pointer;
+}
+
+.header-login:hover{
+  border-color:var(--blue2);
+}
+
+@media(max-width:700px){
+
+  .nav{
+    display:none;
+  }
+
+  .header-right{
+    margin-left:auto;
+  }
+}
+
+/* =========================
+   CAPA
+========================= */
+
+.landing{
+  min-height:calc(100vh - 76px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  padding:70px 20px;
+  overflow:hidden;
+}
+
+.cyber-orb{
+  position:absolute;
+  width:430px;
+  height:430px;
+  right:-90px;
+  top:70px;
+  border-radius:50%;
+  background:
+    radial-gradient(circle at 35% 35%,
+      rgba(0,130,255,.35),
+      transparent 8%),
+    radial-gradient(circle,
+      rgba(0,100,255,.13),
+      transparent 65%);
+  filter:blur(2px);
+  transform:perspective(500px) rotateX(55deg);
+}
+
+.cyber-orb.red{
+  left:-120px;
+  right:auto;
+  top:auto;
+  bottom:-130px;
+  background:
+    radial-gradient(circle at 60% 35%,
+      rgba(255,20,55,.38),
+      transparent 8%),
+    radial-gradient(circle,
+      rgba(255,20,55,.12),
+      transparent 65%);
+}
+
+.hero{
+  width:min(1100px,100%);
+  text-align:center;
+  position:relative;
+  z-index:2;
+}
+
+.hero-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:8px 15px;
+  border:1px solid rgba(255,30,70,.45);
+  border-radius:30px;
+  background:rgba(255,20,50,.06);
+  color:#ff7185;
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+.hero-badge i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--green);
+  box-shadow:0 0 10px var(--green);
+}
+
+.hero h1{
+  margin:25px 0 10px;
+  font-size:clamp(42px,8vw,82px);
+  line-height:.95;
+  letter-spacing:-3px;
+}
+
+.hero h1 .blue{
+  color:var(--blue2);
+  text-shadow:0 0 30px rgba(0,120,255,.25);
+}
+
+.hero h1 .red{
+  color:var(--red2);
+  text-shadow:0 0 30px rgba(255,20,55,.25);
+}
+
+.hero p{
+  max-width:650px;
+  margin:25px auto;
+  color:#aeb9cf;
+  line-height:1.7;
+  font-size:16px;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:13px;
+  flex-wrap:wrap;
+  margin-top:28px;
+}
+
+.btn{
+  border:0;
+  border-radius:11px;
+  padding:14px 24px;
+  cursor:pointer;
+  color:white;
+  font-weight:bold;
+}
+
+.btn-primary{
+  background:linear-gradient(100deg,var(--red),#b91438 45%,var(--blue));
+  box-shadow:0 8px 35px rgba(0,90,255,.18);
+}
+
+.btn-secondary{
+  background:#081329;
+  border:1px solid #24538a;
+}
+
+.btn:hover{
+  transform:translateY(-1px);
+}
+
+/* =========================
+   MÁSCARA 3D CSS
+========================= */
+
+.mask{
+  width:210px;
+  height:250px;
+  margin:50px auto 0;
+  position:relative;
+  filter:drop-shadow(0 0 30px rgba(0,100,255,.20));
+  transform:perspective(600px) rotateY(-8deg);
+}
+
+.mask-face{
+  position:absolute;
+  inset:0;
+  clip-path:polygon(
+    50% 0,
+    88% 17%,
+    100% 60%,
+    76% 100%,
+    24% 100%,
+    0 60%,
+    12% 17%
+  );
+  background:
+    linear-gradient(105deg,
+      #090e19 0%,
+      #161e32 45%,
+      #04070d 46%,
+      #0a1020 100%);
+  border:2px solid #174b88;
+}
+
+.mask-face:before{
+  content:"";
+  position:absolute;
+  left:25px;
+  right:25px;
+  top:77px;
+  height:38px;
+  border-radius:50%;
+  border-top:3px solid var(--red);
+  border-bottom:3px solid var(--blue);
+  box-shadow:
+    0 0 14px var(--red),
+    0 0 22px var(--blue);
+}
+
+.eye{
+  position:absolute;
+  top:88px;
+  width:42px;
+  height:10px;
+  background:#02040a;
+  border-radius:50%;
+  box-shadow:0 0 7px var(--blue);
+}
+
+.eye.left{left:35px}
+.eye.right{right:35px}
+
+.mask-mouth{
+  position:absolute;
+  bottom:48px;
+  left:50%;
+  transform:translateX(-50%);
+  width:80px;
+  height:28px;
+  border-bottom:4px solid var(--red);
+  border-radius:50%;
+  box-shadow:0 9px 12px rgba(255,20,50,.20);
+}
+
+.mask-line{
+  position:absolute;
+  left:50%;
+  top:20px;
+  width:2px;
+  height:205px;
+  background:linear-gradient(
+    transparent,
+    var(--blue),
+    var(--red),
+    transparent
+  );
+  opacity:.7;
+}
+
+/* =========================
+   AUTH
+========================= */
+
+.auth-page{
+  min-height:100vh;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:25px;
+}
+
+.auth-card{
+  width:min(470px,100%);
+  padding:32px;
+  border-radius:24px;
+  border:1px solid #214d87;
+  background:
+    linear-gradient(145deg,
+      rgba(8,19,40,.97),
+      rgba(3,8,19,.97));
+  box-shadow:
+    0 25px 90px rgba(0,0,0,.55),
+    0 0 35px rgba(0,90,255,.10);
+}
+
+.auth-card h2{
+  margin:0 0 7px;
+  font-size:29px;
+}
+
+.auth-card p{
+  color:var(--muted);
+  margin:0 0 22px;
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  margin-bottom:6px;
+  color:#c7d1e5;
+  font-size:12px;
+}
+
+.field input{
+  width:100%;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #29476f;
+  background:#030916;
+  color:white;
+  outline:none;
+}
+
+.field input:focus{
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(0,100,255,.10);
+}
+
+.auth-message{
+  min-height:20px;
+  margin-top:10px;
+  font-size:13px;
+  color:#ff6079;
+}
+
+.auth-switch{
+  text-align:center;
+  color:#9ba9c2;
+  font-size:13px;
+  margin-top:18px;
+}
+
+.auth-switch button{
+  border:0;
+  background:none;
+  color:#55aeff;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+/* =========================
+   PAINEL
+========================= */
+
+.dashboard{
+  display:none;
+  min-height:100vh;
+}
+
+.dashboard-main{
+  width:min(1200px,calc(100% - 30px));
+  margin:auto;
+  padding:30px 0 60px;
+}
+
+.welcome{
+  position:relative;
+  overflow:hidden;
+  border:1px solid #1f568f;
+  border-right-color:var(--red);
+  border-radius:24px;
+  padding:30px;
+  background:
+    radial-gradient(circle at 90% 50%,rgba(0,100,255,.17),transparent 35%),
+    radial-gradient(circle at 5% 80%,rgba(255,20,55,.14),transparent 30%),
+    rgba(5,13,29,.92);
+}
+
+.welcome small{
+  color:#ff5d73;
+  letter-spacing:2px;
+}
+
+.welcome h2{
+  margin:10px 0 6px;
+  font-size:38px;
+}
+
+.welcome p{
+  color:#aeb9d0;
+  margin:0;
+}
+
+.user-info{
+  margin-top:17px;
+  display:flex;
+  gap:9px;
+  flex-wrap:wrap;
+}
+
+.info-pill{
+  padding:8px 12px;
+  border-radius:20px;
+  border:1px solid #263f69;
+  background:#07142b;
+  color:#bdc8dc;
+  font-size:12px;
+}
+
+/* CRÉDITOS */
+
+.credits-box{
+  margin-top:18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  padding:20px 23px;
+  border-radius:19px;
+  border:1px solid rgba(0,120,255,.45);
+  background:
+    linear-gradient(100deg,
+      rgba(0,76,180,.13),
+      rgba(255,20,55,.08));
+}
+
+.credit-number{
+  font-size:30px;
+  font-weight:900;
+  color:#5db4ff;
+}
+
+.credit-label{
+  color:#8f9db7;
+  font-size:12px;
+}
+
+.buy{
+  padding:12px 18px;
+  border:1px solid #ff3656;
+  border-radius:10px;
+  background:linear-gradient(90deg,#8e1029,#df1d42);
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+/* FERRAMENTAS */
+
+.section-title{
+  margin:30px 0 15px;
+}
+
+.section-title h3{
+  margin:0;
+  font-size:20px;
+}
+
+.section-title p{
+  margin:5px 0 0;
+  color:#7f8ca6;
+  font-size:13px;
+}
+
+.tools{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.tool{
+  min-height:180px;
+  padding:22px 17px;
+  border-radius:19px;
+  border:1px solid #20528c;
+  background:
+    linear-gradient(145deg,
+      rgba(8,20,42,.96),
+      rgba(3,9,21,.96));
+  cursor:pointer;
+  transition:.2s;
+  position:relative;
+  overflow:hidden;
+}
+
+.tool:nth-child(3n+1){
+  border-color:#a51e3a;
+}
+
+.tool:hover{
+  transform:translateY(-4px);
+  box-shadow:0 15px 35px rgba(0,0,0,.3);
+  border-color:#4aa8ff;
+}
+
+.tool:nth-child(3n+1):hover{
+  border-color:#ff3a59;
+}
+
+.tool-icon{
+  width:55px;
+  height:55px;
+  display:grid;
+  place-items:center;
+  border-radius:15px;
+  background:#071a37;
+  border:1px solid #1e73c4;
+  color:#59b3ff;
+  font-size:25px;
+  margin-bottom:14px;
+}
+
+.tool:nth-child(3n+1) .tool-icon{
+  border-color:#b92b45;
+  color:#ff5b73;
+  background:#270d18;
+}
+
+.tool h4{
+  margin:0 0 7px;
+  font-size:16px;
+}
+
+.tool p{
+  margin:0;
+  color:#8491aa;
+  font-size:12px;
+  line-height:1.45;
+}
+
+.tool-arrow{
+  position:absolute;
+  right:17px;
+  bottom:15px;
+  color:#378fe3;
+}
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  place-items:center;
+  padding:18px;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(10px);
+}
+
+.modal.show{
+  display:grid;
+}
+
+.modal-card{
+  width:min(480px,100%);
+  padding:28px;
+  border-radius:21px;
+  border:1px solid #2a639e;
+  background:#07142c;
+  box-shadow:0 25px 80px #000;
+}
+
+.modal-card h3{
+  margin:0 0 7px;
+}
+
+.modal-card p{
+  color:#8f9db6;
+  font-size:13px;
+}
+
+.modal-card input{
+  width:100%;
+  padding:14px;
+  background:#020814;
+  border:1px solid #294b76;
+  color:white;
+  border-radius:10px;
+  outline:none;
+}
+
+.modal-buttons{
+  display:flex;
+  justify-content:flex-end;
+  gap:9px;
+  margin-top:15px;
+}
+
+/* MENU */
+
+.menu-wrap{
+  position:relative;
+}
+
+.more-btn{
+  width:44px;
+  height:44px;
+  border-radius:11px;
+  border:1px solid #275b91;
+  background:#07152d;
+  color:white;
+  cursor:pointer;
+  font-size:23px;
+}
+
+.more-menu{
+  display:none;
+  position:absolute;
+  right:0;
+  top:51px;
+  width:210px;
+  z-index:300;
+  padding:8px;
+  border-radius:13px;
+  border:1px solid #28598e;
+  background:#061329;
+  box-shadow:0 20px 50px #000;
+}
+
+.more-menu.open{
+  display:block;
+}
+
+.more-menu button{
+  width:100%;
+  border:0;
+  background:none;
+  color:white;
+  text-align:left;
+  padding:11px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.more-menu button:hover{
+  background:#10274c;
+}
+
+.logout{
+  color:#ff6378!important;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1000px){
+
+  .tools{
+    grid-template-columns:repeat(3,1fr);
+  }
+}
+
+@media(max-width:700px){
+
+  .tools{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .welcome h2{
+    font-size:29px;
+  }
+
+  .credits-box{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+}
+
+@media(max-width:480px){
+
+  .tools{
+    grid-template-columns:1fr;
+  }
+
+  .hero h1{
+    letter-spacing:-2px;
+  }
+
+  .mask{
+    transform:scale(.8) perspective(600px) rotateY(-8deg);
+    margin-top:20px;
+  }
+
+  .auth-card{
+    padding:23px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <!-- LOGIN -->
-  <div class="container" id="login">
 
-    <div class="logo">
-      <h1>PAINEL <span>INVESTIGAÇÃO</span></h1>
-    </div>
+<!-- =====================================================
+     CABEÇALHO
+====================================================== -->
 
-    <div class="card">
+<header class="header">
 
-      <h2>Entrar</h2>
+  <div class="header-inner">
 
-      <input
-        type="email"
-        id="email"
-        placeholder="Seu e-mail"
+    <a class="logo" href="#inicio">
+
+      <div class="logo-icon">
+        ◈
+      </div>
+
+      <div class="logo-text">
+        <strong>PAINEL</strong>
+        <span>INVESTIGAÇÃO</span>
+      </div>
+
+    </a>
+
+
+    <nav class="nav">
+
+      <a href="#inicio">
+        Início
+      </a>
+
+      <a href="#sobre">
+        Sobre nós
+      </a>
+
+      <a href="#contato">
+        Contato
+      </a>
+
+    </nav>
+
+
+    <div class="header-right">
+
+      <button
+        class="header-login"
+        id="headerLogin"
       >
-
-      <input
-        type="password"
-        id="senha"
-        placeholder="Sua senha"
-      >
-
-      <button class="entrar" onclick="entrar()">
         Entrar
       </button>
 
-      <button class="criar" onclick="criarConta()">
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =====================================================
+     CAPA
+====================================================== -->
+
+<section
+  class="landing"
+  id="inicio"
+>
+
+  <div class="cyber-orb"></div>
+  <div class="cyber-orb red"></div>
+
+
+  <div class="hero">
+
+    <div class="hero-badge">
+      <i></i>
+      SISTEMA ONLINE
+    </div>
+
+
+    <h1>
+
+      PAINEL
+
+      <span class="blue">
+        INVESTIGAÇÃO
+      </span>
+
+      <br>
+
+      <span class="red">
+        INTELIGENTE
+      </span>
+
+    </h1>
+
+
+    <p>
+      Uma central moderna para organizar consultas,
+      ferramentas e informações públicas em um único painel.
+    </p>
+
+
+    <div class="hero-buttons">
+
+      <button
+        class="btn btn-primary"
+        id="heroLogin"
+      >
+        Entrar no painel
+      </button>
+
+      <button
+        class="btn btn-secondary"
+        id="heroRegister"
+      >
+        Criar minha conta
+      </button>
+
+    </div>
+
+
+    <!-- ELEMENTO 3D ORIGINAL -->
+
+    <div class="mask">
+
+      <div class="mask-face">
+
+        <div class="mask-line"></div>
+
+        <div class="eye left"></div>
+
+        <div class="eye right"></div>
+
+        <div class="mask-mouth"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     SOBRE
+====================================================== -->
+
+<section
+  id="sobre"
+  style="
+    width:min(1000px,calc(100% - 30px));
+    margin:auto;
+    padding:70px 0;
+  "
+>
+
+  <div
+    class="welcome"
+  >
+
+    <small>
+      SOBRE NÓS
+    </small>
+
+    <h2>
+      Tecnologia em um só lugar.
+    </h2>
+
+    <p>
+      O painel foi desenvolvido para organizar ferramentas
+      e consultas autorizadas em uma interface moderna,
+      rápida e responsiva.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTATO
+====================================================== -->
+
+<section
+  id="contato"
+  style="
+    width:min(1000px,calc(100% - 30px));
+    margin:auto;
+    padding:0 0 80px;
+  "
+>
+
+  <div class="welcome">
+
+    <small>
+      CONTATO
+    </small>
+
+    <h2>
+      Fale conosco.
+    </h2>
+
+    <p>
+      Configure aqui seu e-mail ou canal oficial de atendimento.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     LOGIN / CADASTRO
+====================================================== -->
+
+<section
+  class="auth-page"
+  id="authPage"
+>
+
+  <div class="auth-card">
+
+    <div class="logo" style="margin-bottom:25px">
+
+      <div class="logo-icon">
+        ◈
+      </div>
+
+      <div class="logo-text">
+        <strong>PAINEL</strong>
+        <span>INVESTIGAÇÃO</span>
+      </div>
+
+    </div>
+
+
+    <h2 id="authTitle">
+      Entrar
+    </h2>
+
+    <p id="authSubtitle">
+      Entre para acessar seu painel.
+    </p>
+
+
+    <form id="authForm">
+
+
+      <div
+        class="field"
+        id="nameField"
+        style="display:none"
+      >
+
+        <label>
+          Nome completo
+        </label>
+
+        <input
+          id="name"
+          type="text"
+          autocomplete="name"
+        >
+
+      </div>
+
+
+      <div
+        class="field"
+        id="birthField"
+        style="display:none"
+      >
+
+        <label>
+          Data de nascimento
+        </label>
+
+        <input
+          id="birth"
+          type="date"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          E-mail
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          required
+          autocomplete="email"
+        >
+
+      </div>
+
+
+      <div class="field">
+
+        <label>
+          Senha
+        </label>
+
+        <input
+          id="password"
+          type="password"
+          minlength="6"
+          required
+          autocomplete="current-password"
+        >
+
+      </div>
+
+
+      <button
+        class="btn btn-primary"
+        style="width:100%"
+        id="authButton"
+        type="submit"
+      >
+        Entrar
+      </button>
+
+
+      <div
+        class="auth-message"
+        id="authMessage"
+      ></div>
+
+    </form>
+
+
+    <div class="auth-switch">
+
+      <span id="switchText">
+        Ainda não tem uma conta?
+      </span>
+
+      <button
+        id="switchAuth"
+        type="button"
+      >
         Criar conta
       </button>
 
-      <div id="mensagem"></div>
-
     </div>
-  </div>
-
-
-  <!-- PAINEL -->
-  <div class="container" id="painel">
-
-    <div class="logo">
-      <h1>PAINEL <span>INVESTIGAÇÃO</span></h1>
-      <p>Olá, <span id="usuario"></span></p>
-    </div>
-
-    <div class="ferramentas">
-
-      <div class="ferramenta">
-        🌐
-        <h3>Buscar IP</h3>
-      </div>
-
-      <div class="ferramenta">
-        📞
-        <h3>Dados de Telefone</h3>
-      </div>
-
-      <div class="ferramenta">
-        🚗
-        <h3>Veículo</h3>
-      </div>
-
-      <div class="ferramenta">
-        🏢
-        <h3>CNPJ</h3>
-      </div>
-
-      <div class="ferramenta">
-        🪪
-        <h3>CPF</h3>
-      </div>
-
-      <div class="ferramenta">
-        👤
-        <h3>Buscar Nome</h3>
-      </div>
-
-      <div class="ferramenta">
-        🔗
-        <h3>Redes Sociais</h3>
-      </div>
-
-      <div class="ferramenta">
-        ✉️
-        <h3>Consultar E-mail</h3>
-      </div>
-
-      <div class="ferramenta">
-        📍
-        <h3>CEP</h3>
-      </div>
-
-      <div class="ferramenta">
-        🪪
-        <h3>CPF Completo</h3>
-      </div>
-
-    </div>
-
-    <button class="sair" onclick="sair()">
-      Sair
-    </button>
 
   </div>
 
+</section>
 
-  <!-- FIREBASE -->
-  <script type="module">
 
-    import { initializeApp }
-      from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+<!-- =====================================================
+     PAINEL INTERNO
+====================================================== -->
 
-    import {
-      getAuth,
-      createUserWithEmailAndPassword,
-      signInWithEmailAndPassword,
-      signOut,
-      onAuthStateChanged
-    } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+<section
+  class="dashboard"
+  id="dashboard"
+>
 
+  <div class="dashboard-main">
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyCpLGPXTJbpJr5waC7CCLNiX6a5m7KV7Y8",
-      authDomain: "puxar-dados-edf9d.firebaseapp.com",
-      projectId: "puxar-dados-edf9d",
-      storageBucket: "puxar-dados-edf9d.firebasestorage.app",
-      messagingSenderId: "1027365433148",
-      appId: "1:1027365433148:web:5a6b4b05844117828f3839"
-    };
 
+    <!-- BOAS-VINDAS -->
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+    <div class="welcome">
 
+      <small>
+        PAINEL ONLINE
+      </small>
 
-    window.criarConta = async function() {
 
-      const email =
-        document.getElementById("email").value.trim();
+      <h2>
+        Olá,
+        <span
+          id="userName"
+          style="color:#4caeff"
+        >
+          Usuário
+        </span>
+        👋
+      </h2>
 
-      const senha =
-        document.getElementById("senha").value;
 
-      const mensagem =
-        document.getElementById("mensagem");
+      <p>
+        Selecione uma ferramenta para iniciar.
+      </p>
 
 
-      if (!email || !senha) {
-        mensagem.textContent =
-          "Digite o e-mail e a senha.";
-        return;
-      }
+      <div class="user-info">
 
-      try {
+        <div class="info-pill">
+          ✉️
+          <span id="userEmail">
+            —
+          </span>
+        </div>
 
-        await createUserWithEmailAndPassword(
-          auth,
-          email,
-          senha
-        );
+        <div class="info-pill">
+          🎂
+          <span id="userBirth">
+            —
+          </span>
+        </div>
 
-        mensagem.style.color = "#00ff88";
-        mensagem.textContent =
-          "Conta criada com sucesso!";
+      </div>
 
-      } catch (error) {
+    </div>
 
-        console.error(error);
 
-        mensagem.style.color = "#ff405c";
-        mensagem.textContent =
-          traduzirErro(error.code);
+    <!-- CRÉDITOS -->
 
-      }
-    };
+    <div class="credits-box">
 
+      <div>
 
-    window.entrar = async function() {
+        <div class="credit-label">
+          SEUS CRÉDITOS
+        </div>
 
-      const email =
-        document.getElementById("email").value.trim();
+        <div
+          class="credit-number"
+          id="creditBalance"
+        >
+          0
+        </div>
 
-      const senha =
-        document.getElementById("senha").value;
+      </div>
 
-      const mensagem =
-        document.getElementById("mensagem");
 
+      <button
+        class="buy"
+        id="buyCredits"
+      >
+        💳 Comprar créditos
+      </button>
 
-      if (!email || !senha) {
-        mensagem.textContent =
-          "Digite o e-mail e a senha.";
-        return;
-      }
+    </div>
 
 
-      try {
+    <!-- TÍTULO -->
 
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          senha
-        );
+    <div class="section-title">
 
-      } catch (error) {
+      <h3>
+        Ferramentas
+      </h3>
 
-        console.error(error);
+      <p>
+        Escolha uma opção abaixo.
+      </p>
 
-        mensagem.style.color = "#ff405c";
-        mensagem.textContent =
-          traduzirErro(error.code);
+    </div>
 
-      }
-    };
 
+    <!-- FERRAMENTAS -->
 
-    window.sair = async function() {
+    <div
+      class="tools"
+      id="tools"
+    ></div>
 
-      await signOut(auth);
 
-    };
+    <!-- MENU -->
 
+    <div
+      style="
+        display:flex;
+        justify-content:flex-end;
+        margin-top:20px;
+      "
+    >
 
-    onAuthStateChanged(auth, (user) => {
+      <div class="menu-wrap">
 
-      const login =
-        document.getElementById("login");
+        <button
+          class="more-btn"
+          id="moreBtn"
+        >
+          ⋮
+        </button>
 
-      const painel =
-        document.getElementById("painel");
 
-      const usuario =
-        document.getElementById("usuario");
+        <div
+          class="more-menu"
+          id="moreMenu"
+        >
 
-
-      if (user) {
-
-        login.style.display = "none";
-        painel.style.display = "block";
-
-        usuario.textContent =
-          user.email;
-
-      } else {
-
-        login.style.display = "block";
-        painel.style.display = "none";
-
-      }
-
-    });
-
-
-    function traduzirErro(codigo) {
-
-      switch (codigo) {
-
-        case "auth/email-already-in-use":
-          return "Este e-mail já possui uma conta.";
-
-        case "auth/invalid-email":
-          return "E-mail inválido.";
-
-        case "auth/weak-password":
-          return "A senha precisa ter pelo menos 6 caracteres.";
-
-        case "auth/invalid-credential":
-          return "E-mail ou senha incorretos.";
-
-        case "auth/user-not-found":
-          return "Usuário não encontrado.";
-
-        case "auth/wrong-password":
-          return "Senha incorreta.";
-
-        default:
-          return "Não foi possível realizar a operação.";
-
-      }
-
-    }
-
-  </script>
-
-</body>
-</html>
+          <button onclick="openTool('DDD + cidades')">
+            ☎️ DDD + cidades
+         
