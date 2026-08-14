@@ -19,9 +19,7 @@ body{
     #03050b;
 }
 
-button{
-  cursor:pointer;
-}
+button{cursor:pointer}
 
 .header{
   height:72px;
@@ -41,9 +39,7 @@ button{
   letter-spacing:2px;
 }
 
-.logo span{
-  color:#ff3157;
-}
+.logo span{color:#ff3157}
 
 .nav{
   display:flex;
@@ -62,6 +58,8 @@ button{
   border:1px solid #2879c5;
   border-radius:9px;
 }
+
+/* CAPA */
 
 .landing{
   min-height:calc(100vh - 72px);
@@ -92,13 +90,8 @@ h1{
   margin:25px 0;
 }
 
-.blue{
-  color:#38aaff;
-}
-
-.red{
-  color:#ff3157;
-}
+.blue{color:#38aaff}
+.red{color:#ff3157}
 
 .hero p{
   max-width:650px;
@@ -151,17 +144,11 @@ h1{
   box-shadow:0 25px 70px #000;
 }
 
-.card h2{
-  margin-top:0;
-}
+.card h2{margin-top:0}
 
-.card p{
-  color:#91a0b8;
-}
+.card p{color:#91a0b8}
 
-.field{
-  margin-bottom:15px;
-}
+.field{margin-bottom:15px}
 
 .field label{
   display:block;
@@ -209,7 +196,7 @@ h1{
 
 .dashboard{
   display:none;
-  padding:30px 15px;
+  padding:30px 15px 60px;
 }
 
 .panel{
@@ -249,6 +236,12 @@ h1{
   font-weight:bold;
 }
 
+.buy{
+  padding:13px 20px;
+}
+
+/* FERRAMENTAS */
+
 .tools{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -258,42 +251,142 @@ h1{
 
 .tool{
   padding:20px;
-  min-height:150px;
+  min-height:125px;
   border-radius:17px;
   border:1px solid #20568e;
   background:#071329;
+  transition:.2s;
 }
 
 .tool:hover{
   border-color:#42aaff;
   transform:translateY(-3px);
+  box-shadow:0 10px 30px #0005;
 }
 
 .tool h3{
+  margin:0;
   font-size:16px;
 }
 
-.tool p{
-  color:#8795ac;
-  font-size:12px;
+/* MENU */
+
+.menu-area{
+  display:flex;
+  justify-content:flex-end;
+  position:relative;
+  margin-top:20px;
 }
 
-.price{
-  color:#55b5ff;
-  font-size:11px;
+.menu-button{
+  width:45px;
+  height:45px;
+  border-radius:10px;
+  border:1px solid #28639b;
+  background:#07182f;
+  color:white;
+  font-size:24px;
 }
 
-.free{
-  color:#28e87d;
+.menu{
+  display:none;
+  position:absolute;
+  right:0;
+  top:53px;
+  width:230px;
+  padding:8px;
+  border:1px solid #28639b;
+  border-radius:13px;
+  background:#061329;
+  box-shadow:0 20px 50px #000;
+  z-index:20;
 }
+
+.menu.open{
+  display:block;
+}
+
+.menu button{
+  width:100%;
+  padding:13px;
+  text-align:left;
+  border:0;
+  border-radius:8px;
+  color:white;
+  background:transparent;
+}
+
+.menu button:hover{
+  background:#10274c;
+}
+
+.menu .sair{
+  color:#ff6078;
+}
+
+/* HISTÓRICO */
+
+.history{
+  display:none;
+  margin-top:25px;
+  padding:25px;
+  border-radius:20px;
+  border:1px solid #28639b;
+  background:#071329;
+}
+
+.history.show{
+  display:block;
+}
+
+.history-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.history h3{
+  margin:0;
+}
+
+.history-empty{
+  margin-top:20px;
+  padding:25px;
+  text-align:center;
+  border-radius:12px;
+  background:#040b18;
+  color:#7f8da5;
+}
+
+.history-item{
+  margin-top:10px;
+  padding:14px;
+  border-radius:10px;
+  border:1px solid #1c426b;
+  background:#040b18;
+}
+
+.history-item strong{
+  display:block;
+}
+
+.history-item small{
+  color:#8290a7;
+}
+
+/* RESPONSIVO */
 
 @media(max-width:850px){
+
   .tools{
     grid-template-columns:repeat(2,1fr);
   }
+
 }
 
 @media(max-width:550px){
+
   .nav{
     display:none;
   }
@@ -307,11 +400,18 @@ h1{
     flex-direction:column;
     gap:15px;
   }
+
+  .welcome h2{
+    font-size:27px;
+  }
+
 }
 </style>
 </head>
 
 <body>
+
+<!-- CABEÇALHO -->
 
 <header class="header">
 
@@ -328,18 +428,16 @@ h1{
   <button
     class="login-top"
     type="button"
-    onclick="abrirLogin()"
-  >
+    onclick="abrirLogin()">
     Entrar
   </button>
 
 </header>
 
 
-<section
-  class="landing"
-  id="inicio"
->
+<!-- CAPA -->
+
+<section class="landing" id="inicio">
 
   <div class="hero">
 
@@ -364,16 +462,14 @@ h1{
       <button
         class="btn primary"
         type="button"
-        onclick="abrirLogin()"
-      >
+        onclick="abrirLogin()">
         Entrar no painel
       </button>
 
       <button
         class="btn secondary"
         type="button"
-        onclick="abrirCadastro()"
-      >
+        onclick="abrirCadastro()">
         Criar minha conta
       </button>
 
@@ -384,12 +480,9 @@ h1{
 </section>
 
 
-<!-- LOGIN -->
+<!-- LOGIN / CADASTRO -->
 
-<section
-  class="auth"
-  id="auth"
->
+<section class="auth" id="auth">
 
   <div class="card">
 
@@ -410,28 +503,28 @@ h1{
       <div
         class="field"
         id="campoNome"
-        style="display:none"
-      >
+        style="display:none">
+
         <label>Nome completo</label>
 
         <input
           id="nome"
-          type="text"
-        >
+          type="text">
+
       </div>
 
 
       <div
         class="field"
         id="campoNascimento"
-        style="display:none"
-      >
+        style="display:none">
+
         <label>Data de nascimento</label>
 
         <input
           id="nascimento"
-          type="date"
-        >
+          type="date">
+
       </div>
 
 
@@ -442,8 +535,7 @@ h1{
         <input
           id="email"
           type="email"
-          required
-        >
+          required>
 
       </div>
 
@@ -456,8 +548,7 @@ h1{
           id="senha"
           type="password"
           minlength="6"
-          required
-        >
+          required>
 
       </div>
 
@@ -465,18 +556,19 @@ h1{
       <button
         class="btn primary"
         style="width:100%"
-        type="submit"
-      >
+        type="submit">
+
         <span id="textoBotao">
           Entrar
         </span>
+
       </button>
 
 
       <div
         class="message"
-        id="mensagem"
-      ></div>
+        id="mensagem">
+      </div>
 
     </form>
 
@@ -490,9 +582,10 @@ h1{
       <button
         type="button"
         onclick="trocarModo()"
-        id="botaoTroca"
-      >
+        id="botaoTroca">
+
         Criar conta
+
       </button>
 
     </div>
@@ -504,10 +597,7 @@ h1{
 
 <!-- PAINEL -->
 
-<section
-  class="dashboard"
-  id="dashboard"
->
+<section class="dashboard" id="dashboard">
 
   <div class="panel">
 
@@ -519,8 +609,7 @@ h1{
         Olá,
         <span
           class="blue"
-          id="nomeUsuario"
-        >
+          id="nomeUsuario">
           Usuário
         </span>
         👋
@@ -533,6 +622,8 @@ h1{
     </div>
 
 
+    <!-- CRÉDITOS -->
+
     <div class="credits">
 
       <div>
@@ -543,96 +634,169 @@ h1{
 
         <div
           class="credit"
-          id="creditos"
-        >
+          id="creditos">
           0
         </div>
 
       </div>
 
       <button
-        class="btn primary"
+        class="btn primary buy"
         type="button"
-        onclick="alert('Pagamento será configurado depois.')"
-      >
+        onclick="alert('Pagamento será configurado depois.')">
+
         💳 Comprar créditos
+
       </button>
 
     </div>
 
 
+    <!-- BOTÕES -->
+
     <div class="tools">
 
-      <div class="tool">
-        <div class="price">R$ 0,50</div>
-        <h3>🌐 Buscar IP</h3>
-        <p>Consulta de informações públicas de IP.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('Buscar IP')">
+        <h3>Buscar IP</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 1,00</div>
-        <h3>📞 Dados de Telefone</h3>
-        <p>Consulta por fonte autorizada.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('Dados de Telefone')">
+        <h3>Dados de Telefone</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 1,00</div>
-        <h3>🚗 Veículo</h3>
-        <p>Consulta veicular autorizada.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('Veículo')">
+        <h3>Veículo</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 1,00</div>
-        <h3>🏢 CNPJ</h3>
-        <p>Informações públicas de empresas.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('CNPJ')">
+        <h3>CNPJ</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 1,00</div>
-        <h3>🪪 CPF</h3>
-        <p>Consulta por fonte autorizada.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('CPF')">
+        <h3>CPF</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 1,00</div>
-        <h3>👤 Buscar Nome</h3>
-        <p>Pesquisa em fontes autorizadas.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('Buscar Nome')">
+        <h3>Buscar Nome</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">3 créditos</div>
-        <h3>🔗 Redes Sociais</h3>
-        <p>Consulta de perfis públicos.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('Redes Sociais')">
+        <h3>Redes Sociais</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 1,00</div>
-        <h3>✉️ Consultar E-mail</h3>
-        <p>Consulta de informações permitidas.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('Consultar E-mail')">
+        <h3>Consultar E-mail</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 0,50</div>
-        <h3>📍 CEP</h3>
-        <p>Consulta de endereço por CEP.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('CEP')">
+        <h3>CEP</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">3 créditos</div>
-        <h3>🪪 CPF Completo</h3>
-        <p>Área para integração autorizada.</p>
+      <div
+        class="tool"
+        onclick="abrirConsulta('CPF Completo')">
+        <h3>CPF Completo</h3>
       </div>
 
-      <div class="tool">
-        <div class="price">R$ 0,50</div>
-        <h3>☎️ DDD + cidades</h3>
-        <p>Consulta de DDD e cidades.</p>
+    </div>
+
+
+    <!-- MENU TRÊS PONTOS -->
+
+    <div class="menu-area">
+
+      <button
+        class="menu-button"
+        type="button"
+        onclick="toggleMenu()">
+        ⋮
+      </button>
+
+
+      <div
+        class="menu"
+        id="menu">
+
+        <button
+          type="button"
+          onclick="mostrarHistorico()">
+          📜 Histórico
+        </button>
+
+        <button
+          type="button"
+          onclick="abrirConsulta('DDD + cidades')">
+          ☎️ DDD + cidades
+        </button>
+
+        <button
+          type="button"
+          onclick="abrirConsulta('Rastrear encomenda')">
+          📦 Rastrear encomenda
+        </button>
+
+        <button
+          type="button"
+          class="sair"
+          onclick="sair()">
+          🚪 Sair
+        </button>
+
       </div>
 
-      <div class="tool">
-        <div class="price free">GRÁTIS</div>
-        <h3>📦 Rastrear encomenda</h3>
-        <p>Consulta de rastreamento.</p>
+    </div>
+
+
+    <!-- HISTÓRICO -->
+
+    <div
+      class="history"
+      id="history">
+
+      <div class="history-header">
+
+        <div>
+          <h3>📜 Histórico</h3>
+
+          <p style="color:#8290a7">
+            Suas consultas realizadas.
+          </p>
+        </div>
+
+        <button
+          class="btn secondary"
+          type="button"
+          onclick="fecharHistorico()">
+          Fechar
+        </button>
+
+      </div>
+
+
+      <div id="historyList">
+
+        <div class="history-empty">
+          Nenhuma consulta realizada ainda.
+        </div>
+
       </div>
 
     </div>
@@ -642,23 +806,23 @@ h1{
 </section>
 
 
-<script>
+<!-- JAVASCRIPT DA INTERFACE -->
 
-/*
-  ESTES BOTÕES FUNCIONAM INDEPENDENTEMENTE
-  DO FIREBASE.
-*/
+<script>
 
 let modoCadastro = false;
 
 
 function abrirLogin(){
 
-  document.querySelector(".landing").style.display = "none";
+  document.querySelector(".landing").style.display =
+    "none";
 
-  document.getElementById("auth").style.display = "flex";
+  document.getElementById("auth").style.display =
+    "flex";
 
-  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("dashboard").style.display =
+    "none";
 
   modoCadastro = false;
 
@@ -669,11 +833,14 @@ function abrirLogin(){
 
 function abrirCadastro(){
 
-  document.querySelector(".landing").style.display = "none";
+  document.querySelector(".landing").style.display =
+    "none";
 
-  document.getElementById("auth").style.display = "flex";
+  document.getElementById("auth").style.display =
+    "flex";
 
-  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("dashboard").style.display =
+    "none";
 
   modoCadastro = true;
 
@@ -721,7 +888,94 @@ function atualizarTela(){
 
 
   document.getElementById("botaoTroca").textContent =
-    modoCadastro ? "Entrar" : "Criar conta";
+    modoCadastro
+      ? "Entrar"
+      : "Criar conta";
+
+}
+
+
+/* MENU */
+
+function toggleMenu(){
+
+  document
+    .getElementById("menu")
+    .classList.toggle("open");
+
+}
+
+
+/* HISTÓRICO */
+
+function mostrarHistorico(){
+
+  document
+    .getElementById("menu")
+    .classList.remove("open");
+
+  document
+    .getElementById("history")
+    .classList.add("show");
+
+  document
+    .getElementById("history")
+    .scrollIntoView({
+      behavior:"smooth",
+      block:"start"
+    });
+
+}
+
+
+function fecharHistorico(){
+
+  document
+    .getElementById("history")
+    .classList.remove("show");
+
+}
+
+
+/* CONSULTAS */
+
+let consultaAtual = "";
+
+
+function abrirConsulta(nome){
+
+  consultaAtual = nome;
+
+  document
+    .getElementById("menu")
+    .classList.remove("open");
+
+  alert(
+    "Ferramenta selecionada: " +
+    nome +
+    "\n\nA integração da consulta será adicionada posteriormente."
+  );
+
+}
+
+
+/* SAIR */
+
+async function sair(){
+
+  try{
+
+    if(window.firebaseLogout){
+      await window.firebaseLogout();
+    }
+
+  }catch(e){
+
+    console.error(e);
+
+  }
+
+  location.reload();
 
 }
 
@@ -739,7 +993,8 @@ import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  onAuthStateChanged
+  onAuthStateChanged,
+  signOut
 }
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
@@ -782,124 +1037,158 @@ const auth = getAuth(app);
 const db = getFirestore(app);
 
 
+/* LOGIN / CADASTRO */
+
 document
   .getElementById("formAuth")
-  .addEventListener("submit", async function(e){
+  .addEventListener(
+    "submit",
+    async function(e){
 
-    e.preventDefault();
-
-
-    const mensagem =
-      document.getElementById("mensagem");
+      e.preventDefault();
 
 
-    mensagem.textContent =
-      "Processando...";
+      const mensagem =
+        document.getElementById("mensagem");
 
 
-    const email =
-      document.getElementById("email").value.trim();
+      mensagem.style.color =
+        "#ff6179";
 
-    const senha =
-      document.getElementById("senha").value;
-
-
-    try{
-
-      if(modoCadastro){
-
-        const nome =
-          document.getElementById("nome").value.trim();
-
-        const nascimento =
-          document.getElementById("nascimento").value;
+      mensagem.textContent =
+        "Processando...";
 
 
-        if(!nome)
-          throw new Error("Digite seu nome.");
+      const email =
+        document.getElementById("email")
+          .value
+          .trim();
 
-        if(!nascimento)
-          throw new Error("Informe sua data de nascimento.");
+      const senha =
+        document.getElementById("senha")
+          .value;
 
 
-        const resultado =
-          await createUserWithEmailAndPassword(
+      try{
+
+        if(modoCadastro){
+
+          const nome =
+            document.getElementById("nome")
+              .value
+              .trim();
+
+          const nascimento =
+            document.getElementById("nascimento")
+              .value;
+
+
+          if(!nome){
+
+            throw new Error(
+              "Digite seu nome."
+            );
+
+          }
+
+
+          if(!nascimento){
+
+            throw new Error(
+              "Informe sua data de nascimento."
+            );
+
+          }
+
+
+          const resultado =
+            await createUserWithEmailAndPassword(
+              auth,
+              email,
+              senha
+            );
+
+
+          await setDoc(
+            doc(
+              db,
+              "users",
+              resultado.user.uid
+            ),
+            {
+              name:nome,
+              birthDate:nascimento,
+              email:email,
+              credits:0,
+              createdAt:
+                new Date().toISOString()
+            }
+          );
+
+
+          mensagem.style.color =
+            "#21e878";
+
+          mensagem.textContent =
+            "Conta criada!";
+
+
+        }else{
+
+          await signInWithEmailAndPassword(
             auth,
             email,
             senha
           );
 
+        }
 
-        await setDoc(
-          doc(db,"users",resultado.user.uid),
-          {
-            name:nome,
-            birthDate:nascimento,
-            email:email,
-            credits:0
-          }
-        );
+      }catch(error){
+
+        console.error(error);
 
 
-        mensagem.style.color =
-          "#21e878";
+        const erros = {
+
+          "auth/email-already-in-use":
+            "Este e-mail já está cadastrado.",
+
+          "auth/invalid-email":
+            "E-mail inválido.",
+
+          "auth/weak-password":
+            "A senha precisa ter pelo menos 6 caracteres.",
+
+          "auth/invalid-credential":
+            "E-mail ou senha incorretos.",
+
+          "auth/user-not-found":
+            "Usuário não encontrado.",
+
+          "auth/wrong-password":
+            "Senha incorreta.",
+
+          "auth/network-request-failed":
+            "Falha de conexão com o Firebase.",
+
+          "auth/too-many-requests":
+            "Muitas tentativas. Aguarde."
+
+        };
+
 
         mensagem.textContent =
-          "Conta criada!";
-
-
-      }else{
-
-        await signInWithEmailAndPassword(
-          auth,
-          email,
-          senha
-        );
+          erros[error.code] ||
+          error.message ||
+          "Erro ao entrar.";
 
       }
 
-    }catch(error){
-
-      console.error(error);
-
-      mensagem.style.color =
-        "#ff6179";
-
-
-      const erros = {
-
-        "auth/email-already-in-use":
-          "Este e-mail já está cadastrado.",
-
-        "auth/invalid-email":
-          "E-mail inválido.",
-
-        "auth/weak-password":
-          "A senha precisa ter pelo menos 6 caracteres.",
-
-        "auth/invalid-credential":
-          "E-mail ou senha incorretos.",
-
-        "auth/user-not-found":
-          "Usuário não encontrado.",
-
-        "auth/wrong-password":
-          "Senha incorreta."
-
-      };
-
-
-      mensagem.textContent =
-        erros[error.code] ||
-        error.message ||
-        "Erro ao entrar.";
-
     }
+  );
 
-});
 
-
-/* LOGIN AUTOMÁTICO */
+/* USUÁRIO LOGADO */
 
 onAuthStateChanged(
   auth,
@@ -909,25 +1198,36 @@ onAuthStateChanged(
       return;
 
 
-    document.querySelector(".landing").style.display =
-      "none";
-
-    document.getElementById("auth").style.display =
-      "none";
-
-    document.getElementById("dashboard").style.display =
-      "block";
+    document
+      .querySelector(".landing")
+      .style.display = "none";
 
 
-    document.getElementById("nomeUsuario").textContent =
-      user.email.split("@")[0];
+    document
+      .getElementById("auth")
+      .style.display = "none";
+
+
+    document
+      .getElementById("dashboard")
+      .style.display = "block";
+
+
+    document
+      .getElementById("nomeUsuario")
+      .textContent =
+        user.email.split("@")[0];
 
 
     try{
 
       const resultado =
         await getDoc(
-          doc(db,"users",user.uid)
+          doc(
+            db,
+            "users",
+            user.uid
+          )
         );
 
 
@@ -937,14 +1237,17 @@ onAuthStateChanged(
           resultado.data();
 
 
-        document.getElementById("nomeUsuario")
+        document
+          .getElementById("nomeUsuario")
           .textContent =
-          dados.name || user.email.split("@")[0];
+            dados.name ||
+            user.email.split("@")[0];
 
 
-        document.getElementById("creditos")
+        document
+          .getElementById("creditos")
           .textContent =
-          dados.credits ?? 0;
+            dados.credits ?? 0;
 
       }
 
@@ -954,9 +1257,20 @@ onAuthStateChanged(
 
     }
 
-  });
+  }
+);
+
+
+/* LOGOUT */
+
+window.firebaseLogout =
+  async function(){
+
+    await signOut(auth);
+
+  };
 
 </script>
 
 </body>
-</html>
+          </html>
