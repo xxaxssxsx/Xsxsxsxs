@@ -2,101 +2,55 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Painel Investigação</title>
 
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 :root{
-  --bg:#02040b;
-  --panel:#070d1c;
-  --panel2:#0b1428;
+  --bg:#03050b;
+  --card:#080e1d;
+  --card2:#0d1629;
   --blue:#087cff;
-  --blue2:#35a7ff;
-  --red:#ff1645;
-  --red2:#ff4967;
-  --white:#f5f7ff;
-  --muted:#9caac4;
-  --green:#24e878;
+  --blue2:#3db0ff;
+  --red:#ff1748;
+  --red2:#ff5575;
+  --text:#f5f7ff;
+  --muted:#8d9ab2;
+  --green:#21e878;
 }
 
-html{
-  scroll-behavior:smooth;
-}
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   min-height:100vh;
+  color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
-  color:var(--white);
   background:
-    radial-gradient(circle at 10% 20%,rgba(255,0,55,.20),transparent 27%),
-    radial-gradient(circle at 90% 30%,rgba(0,90,255,.22),transparent 30%),
-    radial-gradient(circle at 50% 100%,rgba(255,0,55,.10),transparent 35%),
-    #02040b;
-  overflow-x:hidden;
+    radial-gradient(circle at 10% 20%,rgba(255,0,55,.18),transparent 28%),
+    radial-gradient(circle at 90% 25%,rgba(0,100,255,.20),transparent 30%),
+    radial-gradient(circle at 50% 100%,rgba(255,0,50,.08),transparent 35%),
+    var(--bg);
 }
 
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-2;
-  background:
-    linear-gradient(115deg,transparent 40%,rgba(0,105,255,.06) 41%,transparent 42%),
-    linear-gradient(65deg,transparent 55%,rgba(255,20,60,.05) 56%,transparent 57%);
-  background-size:260px 260px;
-  animation:bgmove 18s linear infinite;
-}
+button,input{font:inherit}
 
-body:after{
-  content:"";
-  position:fixed;
-  width:700px;
-  height:700px;
-  left:50%;
-  top:45%;
-  transform:translate(-50%,-50%);
-  z-index:-3;
-  border-radius:50%;
-  background:
-    radial-gradient(circle,
-      rgba(0,100,255,.08) 0,
-      rgba(255,0,45,.05) 35%,
-      transparent 70%);
-  filter:blur(10px);
-}
+button{cursor:pointer}
 
-@keyframes bgmove{
-  from{background-position:0 0,0 0}
-  to{background-position:260px 260px,-260px 260px}
-}
+.hidden{display:none!important}
 
-button,
-input{
-  font:inherit;
-}
-
-.hidden{
-  display:none!important;
-}
-
-/* =========================
-   CABEÇALHO
-========================= */
+/* HEADER */
 
 .header{
-  width:100%;
-  height:76px;
+  height:74px;
   position:sticky;
   top:0;
   z-index:100;
-  border-bottom:1px solid rgba(60,105,180,.25);
-  background:rgba(2,6,16,.82);
+  background:rgba(3,7,17,.86);
   backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(70,120,190,.25);
 }
 
 .header-inner{
@@ -111,9 +65,9 @@ input{
 .logo{
   display:flex;
   align-items:center;
-  gap:11px;
+  gap:10px;
+  color:#fff;
   text-decoration:none;
-  color:white;
 }
 
 .logo-icon{
@@ -121,25 +75,24 @@ input{
   height:42px;
   display:grid;
   place-items:center;
-  border-radius:13px;
-  border:1px solid var(--blue);
-  background:
-    linear-gradient(135deg,rgba(255,20,55,.20),rgba(0,100,255,.18));
-  box-shadow:
-    0 0 18px rgba(0,110,255,.25),
-    inset 0 0 20px rgba(255,20,55,.10);
-  font-size:22px;
+  border-radius:12px;
+  background:linear-gradient(135deg,rgba(255,20,60,.18),rgba(0,110,255,.2));
+  border:1px solid #287bd0;
+  box-shadow:0 0 22px rgba(0,100,255,.2);
+  font-size:21px;
 }
 
-.logo-text strong{
+.logo strong{
   display:block;
   font-size:14px;
   letter-spacing:1.5px;
 }
 
-.logo-text span{
+.logo span{
+  display:block;
+  margin-top:2px;
   color:var(--red2);
-  font-size:10px;
+  font-size:9px;
   letter-spacing:3px;
 }
 
@@ -149,113 +102,75 @@ input{
 }
 
 .nav a{
-  color:#cbd5ea;
+  color:#bac6da;
   text-decoration:none;
   font-size:13px;
-  transition:.2s;
 }
 
-.nav a:hover{
-  color:white;
-}
-
-.header-right{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
+.nav a:hover{color:#fff}
 
 .header-login{
   padding:10px 17px;
-  border-radius:9px;
-  border:1px solid #2367b7;
-  background:#07152c;
   color:white;
-  cursor:pointer;
+  background:#07162d;
+  border:1px solid #28639f;
+  border-radius:9px;
 }
 
-.header-login:hover{
-  border-color:var(--blue2);
-}
-
-@media(max-width:700px){
-
-  .nav{
-    display:none;
-  }
-
-  .header-right{
-    margin-left:auto;
-  }
-}
-
-/* =========================
-   CAPA
-========================= */
+/* LANDING */
 
 .landing{
-  min-height:calc(100vh - 76px);
+  min-height:calc(100vh - 74px);
   display:flex;
-  align-items:center;
   justify-content:center;
+  align-items:center;
   position:relative;
-  padding:70px 20px;
+  padding:60px 20px;
   overflow:hidden;
 }
 
-.cyber-orb{
+.orb{
   position:absolute;
-  width:430px;
-  height:430px;
-  right:-90px;
-  top:70px;
+  width:450px;
+  height:450px;
   border-radius:50%;
-  background:
-    radial-gradient(circle at 35% 35%,
-      rgba(0,130,255,.35),
-      transparent 8%),
-    radial-gradient(circle,
-      rgba(0,100,255,.13),
-      transparent 65%);
   filter:blur(2px);
-  transform:perspective(500px) rotateX(55deg);
+  opacity:.8;
 }
 
-.cyber-orb.red{
-  left:-120px;
-  right:auto;
-  top:auto;
-  bottom:-130px;
-  background:
-    radial-gradient(circle at 60% 35%,
-      rgba(255,20,55,.38),
-      transparent 8%),
-    radial-gradient(circle,
-      rgba(255,20,55,.12),
-      transparent 65%);
+.orb-blue{
+  right:-150px;
+  top:70px;
+  background:radial-gradient(circle,rgba(0,110,255,.24),transparent 68%);
+}
+
+.orb-red{
+  left:-150px;
+  bottom:-150px;
+  background:radial-gradient(circle,rgba(255,20,60,.22),transparent 68%);
 }
 
 .hero{
-  width:min(1100px,100%);
+  width:min(1050px,100%);
   text-align:center;
   position:relative;
   z-index:2;
 }
 
-.hero-badge{
+.badge{
   display:inline-flex;
-  align-items:center;
   gap:8px;
+  align-items:center;
   padding:8px 15px;
-  border:1px solid rgba(255,30,70,.45);
   border-radius:30px;
-  background:rgba(255,20,50,.06);
-  color:#ff7185;
-  font-size:11px;
+  border:1px solid rgba(255,50,80,.45);
+  color:#ff7187;
+  background:rgba(255,20,55,.05);
+  font-size:10px;
   letter-spacing:2px;
 }
 
-.hero-badge i{
+.badge i{
   width:7px;
   height:7px;
   border-radius:50%;
@@ -264,72 +179,59 @@ input{
 }
 
 .hero h1{
-  margin:25px 0 10px;
-  font-size:clamp(42px,8vw,82px);
+  margin:24px 0 15px;
+  font-size:clamp(42px,8vw,78px);
   line-height:.95;
   letter-spacing:-3px;
 }
 
-.hero h1 .blue{
-  color:var(--blue2);
-  text-shadow:0 0 30px rgba(0,120,255,.25);
-}
-
-.hero h1 .red{
-  color:var(--red2);
-  text-shadow:0 0 30px rgba(255,20,55,.25);
-}
+.blue{color:var(--blue2)}
+.red{color:var(--red2)}
 
 .hero p{
   max-width:650px;
-  margin:25px auto;
-  color:#aeb9cf;
+  margin:20px auto;
+  color:#a7b4ca;
   line-height:1.7;
-  font-size:16px;
 }
 
 .hero-buttons{
   display:flex;
   justify-content:center;
-  gap:13px;
+  gap:12px;
   flex-wrap:wrap;
   margin-top:28px;
 }
 
 .btn{
   border:0;
-  border-radius:11px;
-  padding:14px 24px;
-  cursor:pointer;
+  border-radius:10px;
+  padding:14px 23px;
   color:white;
   font-weight:bold;
 }
 
-.btn-primary{
-  background:linear-gradient(100deg,var(--red),#b91438 45%,var(--blue));
-  box-shadow:0 8px 35px rgba(0,90,255,.18);
+.primary{
+  background:linear-gradient(100deg,var(--red),#bd1439 45%,var(--blue));
+  box-shadow:0 8px 35px rgba(0,80,255,.18);
 }
 
-.btn-secondary{
-  background:#081329;
-  border:1px solid #24538a;
+.secondary{
+  background:#07152d;
+  border:1px solid #245589;
 }
 
-.btn:hover{
-  transform:translateY(-1px);
-}
+.btn:hover{transform:translateY(-1px)}
 
-/* =========================
-   MÁSCARA 3D CSS
-========================= */
+/* MÁSCARA CYBER ORIGINAL */
 
 .mask{
-  width:210px;
-  height:250px;
-  margin:50px auto 0;
+  width:205px;
+  height:240px;
   position:relative;
-  filter:drop-shadow(0 0 30px rgba(0,100,255,.20));
+  margin:45px auto 0;
   transform:perspective(600px) rotateY(-8deg);
+  filter:drop-shadow(0 0 28px rgba(0,100,255,.22));
 }
 
 .mask-face{
@@ -344,53 +246,14 @@ input{
     0 60%,
     12% 17%
   );
-  background:
-    linear-gradient(105deg,
-      #090e19 0%,
-      #161e32 45%,
-      #04070d 46%,
-      #0a1020 100%);
-  border:2px solid #174b88;
-}
-
-.mask-face:before{
-  content:"";
-  position:absolute;
-  left:25px;
-  right:25px;
-  top:77px;
-  height:38px;
-  border-radius:50%;
-  border-top:3px solid var(--red);
-  border-bottom:3px solid var(--blue);
-  box-shadow:
-    0 0 14px var(--red),
-    0 0 22px var(--blue);
-}
-
-.eye{
-  position:absolute;
-  top:88px;
-  width:42px;
-  height:10px;
-  background:#02040a;
-  border-radius:50%;
-  box-shadow:0 0 7px var(--blue);
-}
-
-.eye.left{left:35px}
-.eye.right{right:35px}
-
-.mask-mouth{
-  position:absolute;
-  bottom:48px;
-  left:50%;
-  transform:translateX(-50%);
-  width:80px;
-  height:28px;
-  border-bottom:4px solid var(--red);
-  border-radius:50%;
-  box-shadow:0 9px 12px rgba(255,20,50,.20);
+  background:linear-gradient(
+    110deg,
+    #090e18,
+    #17223a 45%,
+    #04070d 46%,
+    #0a1020
+  );
+  border:2px solid #19508d;
 }
 
 .mask-line{
@@ -398,19 +261,40 @@ input{
   left:50%;
   top:20px;
   width:2px;
-  height:205px;
+  height:195px;
   background:linear-gradient(
     transparent,
     var(--blue),
     var(--red),
     transparent
   );
-  opacity:.7;
 }
 
-/* =========================
-   AUTH
-========================= */
+.eye{
+  position:absolute;
+  top:87px;
+  width:42px;
+  height:10px;
+  border-radius:50%;
+  background:#02040a;
+  box-shadow:0 0 10px var(--blue);
+}
+
+.eye.left{left:34px}
+.eye.right{right:34px}
+
+.mask-mouth{
+  position:absolute;
+  left:50%;
+  bottom:45px;
+  width:78px;
+  height:27px;
+  transform:translateX(-50%);
+  border-bottom:4px solid var(--red);
+  border-radius:50%;
+}
+
+/* AUTH */
 
 .auth-page{
   min-height:100vh;
@@ -421,80 +305,63 @@ input{
 }
 
 .auth-card{
-  width:min(470px,100%);
-  padding:32px;
-  border-radius:24px;
-  border:1px solid #214d87;
-  background:
-    linear-gradient(145deg,
-      rgba(8,19,40,.97),
-      rgba(3,8,19,.97));
-  box-shadow:
-    0 25px 90px rgba(0,0,0,.55),
-    0 0 35px rgba(0,90,255,.10);
+  width:min(460px,100%);
+  padding:30px;
+  border:1px solid #245a91;
+  border-radius:23px;
+  background:linear-gradient(145deg,#09152b,#030816);
+  box-shadow:0 25px 90px rgba(0,0,0,.55);
 }
 
-.auth-card h2{
-  margin:0 0 7px;
-  font-size:29px;
-}
+.auth-card h2{margin:0 0 7px;font-size:29px}
+.auth-card > p{color:var(--muted);margin:0 0 23px}
 
-.auth-card p{
-  color:var(--muted);
-  margin:0 0 22px;
-}
-
-.field{
-  margin-bottom:14px;
-}
+.field{margin-bottom:14px}
 
 .field label{
   display:block;
-  margin-bottom:6px;
-  color:#c7d1e5;
+  color:#c8d2e5;
   font-size:12px;
+  margin-bottom:6px;
 }
 
 .field input{
   width:100%;
   padding:14px;
   border-radius:10px;
-  border:1px solid #29476f;
-  background:#030916;
-  color:white;
+  border:1px solid #294b76;
   outline:none;
+  color:white;
+  background:#020814;
 }
 
 .field input:focus{
   border-color:var(--blue);
-  box-shadow:0 0 0 3px rgba(0,100,255,.10);
+  box-shadow:0 0 0 3px rgba(0,100,255,.1);
 }
 
-.auth-message{
+.message{
   min-height:20px;
   margin-top:10px;
   font-size:13px;
   color:#ff6079;
 }
 
-.auth-switch{
-  text-align:center;
-  color:#9ba9c2;
-  font-size:13px;
+.switch{
   margin-top:18px;
+  text-align:center;
+  color:#9aa7bd;
+  font-size:13px;
 }
 
-.auth-switch button{
+.switch button{
   border:0;
   background:none;
-  color:#55aeff;
-  cursor:pointer;
+  color:#4eaeff;
   font-weight:bold;
 }
 
-/* =========================
-   PAINEL
-========================= */
+/* DASHBOARD */
 
 .dashboard{
   display:none;
@@ -508,88 +375,87 @@ input{
 }
 
 .welcome{
-  position:relative;
-  overflow:hidden;
-  border:1px solid #1f568f;
-  border-right-color:var(--red);
-  border-radius:24px;
   padding:30px;
+  border-radius:23px;
+  border:1px solid #23588f;
+  border-right-color:var(--red);
   background:
-    radial-gradient(circle at 90% 50%,rgba(0,100,255,.17),transparent 35%),
-    radial-gradient(circle at 5% 80%,rgba(255,20,55,.14),transparent 30%),
-    rgba(5,13,29,.92);
+    radial-gradient(circle at 90% 50%,rgba(0,100,255,.16),transparent 35%),
+    radial-gradient(circle at 5% 90%,rgba(255,20,55,.12),transparent 30%),
+    rgba(6,14,30,.94);
 }
 
 .welcome small{
-  color:#ff5d73;
+  color:#ff6078;
   letter-spacing:2px;
 }
 
 .welcome h2{
-  margin:10px 0 6px;
+  margin:9px 0 7px;
   font-size:38px;
 }
 
 .welcome p{
-  color:#aeb9d0;
   margin:0;
+  color:#a9b5ca;
 }
 
 .user-info{
-  margin-top:17px;
   display:flex;
-  gap:9px;
   flex-wrap:wrap;
+  gap:9px;
+  margin-top:16px;
 }
 
-.info-pill{
+.pill{
   padding:8px 12px;
+  border:1px solid #28476d;
   border-radius:20px;
-  border:1px solid #263f69;
   background:#07142b;
-  color:#bdc8dc;
+  color:#bac6d9;
   font-size:12px;
 }
 
-/* CRÉDITOS */
+/* CREDITOS */
 
-.credits-box{
+.credits{
   margin-top:18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
   padding:20px 23px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:20px;
   border-radius:19px;
-  border:1px solid rgba(0,120,255,.45);
-  background:
-    linear-gradient(100deg,
-      rgba(0,76,180,.13),
-      rgba(255,20,55,.08));
-}
-
-.credit-number{
-  font-size:30px;
-  font-weight:900;
-  color:#5db4ff;
+  border:1px solid rgba(0,120,255,.4);
+  background:linear-gradient(
+    100deg,
+    rgba(0,70,180,.13),
+    rgba(255,20,55,.07)
+  );
 }
 
 .credit-label{
-  color:#8f9db7;
-  font-size:12px;
+  color:#8d9bb5;
+  font-size:11px;
+}
+
+.credit-value{
+  margin-top:3px;
+  font-size:30px;
+  font-weight:900;
+  color:#54b2ff;
 }
 
 .buy{
   padding:12px 18px;
-  border:1px solid #ff3656;
-  border-radius:10px;
-  background:linear-gradient(90deg,#8e1029,#df1d42);
   color:white;
   font-weight:bold;
-  cursor:pointer;
+  border-radius:10px;
+  border:1px solid #ff3657;
+  background:linear-gradient(90deg,#8c1028,#dd1c42);
 }
 
-/* FERRAMENTAS */
+/* TOOLS */
 
 .section-title{
   margin:30px 0 15px;
@@ -602,7 +468,7 @@ input{
 
 .section-title p{
   margin:5px 0 0;
-  color:#7f8ca6;
+  color:#7f8da7;
   font-size:13px;
 }
 
@@ -613,51 +479,44 @@ input{
 }
 
 .tool{
-  min-height:180px;
-  padding:22px 17px;
-  border-radius:19px;
-  border:1px solid #20528c;
-  background:
-    linear-gradient(145deg,
-      rgba(8,20,42,.96),
-      rgba(3,9,21,.96));
-  cursor:pointer;
-  transition:.2s;
+  min-height:175px;
+  padding:20px 17px;
   position:relative;
   overflow:hidden;
+  border-radius:18px;
+  border:1px solid #20548d;
+  background:linear-gradient(145deg,#09152b,#030916);
+  transition:.2s;
+  cursor:pointer;
 }
 
 .tool:nth-child(3n+1){
-  border-color:#a51e3a;
+  border-color:#8d1b37;
 }
 
 .tool:hover{
   transform:translateY(-4px);
-  box-shadow:0 15px 35px rgba(0,0,0,.3);
-  border-color:#4aa8ff;
+  border-color:#48a9ff;
+  box-shadow:0 15px 35px rgba(0,0,0,.35);
 }
 
-.tool:nth-child(3n+1):hover{
-  border-color:#ff3a59;
-}
-
-.tool-icon{
-  width:55px;
-  height:55px;
+.icon{
+  width:54px;
+  height:54px;
   display:grid;
   place-items:center;
-  border-radius:15px;
-  background:#071a37;
-  border:1px solid #1e73c4;
-  color:#59b3ff;
-  font-size:25px;
-  margin-bottom:14px;
+  border-radius:14px;
+  background:#071a36;
+  border:1px solid #2277c7;
+  color:#56b4ff;
+  font-size:24px;
+  margin-bottom:13px;
 }
 
-.tool:nth-child(3n+1) .tool-icon{
-  border-color:#b92b45;
-  color:#ff5b73;
-  background:#270d18;
+.tool:nth-child(3n+1) .icon{
+  background:#270c18;
+  border-color:#ad2845;
+  color:#ff5b76;
 }
 
 .tool h4{
@@ -667,61 +526,108 @@ input{
 
 .tool p{
   margin:0;
-  color:#8491aa;
+  color:#8491a9;
   font-size:12px;
   line-height:1.45;
 }
 
-.tool-arrow{
+.price{
   position:absolute;
-  right:17px;
-  bottom:15px;
-  color:#378fe3;
+  right:13px;
+  top:13px;
+  padding:5px 8px;
+  border-radius:7px;
+  background:#061c35;
+  color:#5db5ff;
+  font-size:10px;
+  font-weight:bold;
 }
 
-/* =========================
-   MODAL
-========================= */
+.free{
+  color:#26e87c;
+  background:#062418;
+}
+
+.more-area{
+  display:flex;
+  justify-content:flex-end;
+  margin-top:20px;
+  position:relative;
+}
+
+.more{
+  width:44px;
+  height:44px;
+  border-radius:11px;
+  border:1px solid #275b91;
+  background:#07152d;
+  color:white;
+  font-size:23px;
+}
+
+.menu{
+  display:none;
+  position:absolute;
+  right:0;
+  top:52px;
+  width:220px;
+  padding:8px;
+  border-radius:13px;
+  border:1px solid #28598e;
+  background:#061329;
+  box-shadow:0 20px 50px #000;
+  z-index:20;
+}
+
+.menu.open{display:block}
+
+.menu button{
+  width:100%;
+  padding:11px;
+  text-align:left;
+  border:0;
+  border-radius:8px;
+  background:none;
+  color:white;
+}
+
+.menu button:hover{background:#10274c}
+
+.logout{color:#ff6378!important}
+
+/* MODAIS */
 
 .modal{
+  display:none;
   position:fixed;
   inset:0;
   z-index:500;
-  display:none;
   place-items:center;
   padding:18px;
   background:rgba(0,0,0,.75);
-  backdrop-filter:blur(10px);
+  backdrop-filter:blur(9px);
 }
 
-.modal.show{
-  display:grid;
-}
+.modal.show{display:grid}
 
 .modal-card{
   width:min(480px,100%);
-  padding:28px;
-  border-radius:21px;
-  border:1px solid #2a639e;
+  padding:27px;
+  border-radius:20px;
+  border:1px solid #2b639c;
   background:#07142c;
   box-shadow:0 25px 80px #000;
 }
 
-.modal-card h3{
-  margin:0 0 7px;
-}
-
-.modal-card p{
-  color:#8f9db6;
-  font-size:13px;
-}
+.modal-card h3{margin:0 0 7px}
+.modal-card p{color:#8e9bb3;font-size:13px}
 
 .modal-card input{
   width:100%;
   padding:14px;
+  color:white;
   background:#020814;
   border:1px solid #294b76;
-  color:white;
   border-radius:10px;
   outline:none;
 }
@@ -733,516 +639,233 @@ input{
   margin-top:15px;
 }
 
-/* MENU */
-
-.menu-wrap{
-  position:relative;
-}
-
-.more-btn{
-  width:44px;
-  height:44px;
-  border-radius:11px;
-  border:1px solid #275b91;
-  background:#07152d;
-  color:white;
-  cursor:pointer;
-  font-size:23px;
-}
-
-.more-menu{
-  display:none;
-  position:absolute;
-  right:0;
-  top:51px;
-  width:210px;
-  z-index:300;
-  padding:8px;
-  border-radius:13px;
-  border:1px solid #28598e;
-  background:#061329;
-  box-shadow:0 20px 50px #000;
-}
-
-.more-menu.open{
-  display:block;
-}
-
-.more-menu button{
-  width:100%;
-  border:0;
-  background:none;
-  color:white;
-  text-align:left;
-  padding:11px;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.more-menu button:hover{
-  background:#10274c;
-}
-
-.logout{
-  color:#ff6378!important;
-}
-
-/* RESPONSIVO */
+/* RESPONSIVE */
 
 @media(max-width:1000px){
-
-  .tools{
-    grid-template-columns:repeat(3,1fr);
-  }
+  .tools{grid-template-columns:repeat(3,1fr)}
 }
 
 @media(max-width:700px){
-
-  .tools{
-    grid-template-columns:repeat(2,1fr);
-  }
-
-  .welcome h2{
-    font-size:29px;
-  }
-
-  .credits-box{
+  .nav{display:none}
+  .tools{grid-template-columns:repeat(2,1fr)}
+  .welcome h2{font-size:29px}
+  .credits{
     align-items:flex-start;
     flex-direction:column;
   }
 }
 
 @media(max-width:480px){
-
-  .tools{
-    grid-template-columns:1fr;
-  }
-
-  .hero h1{
-    letter-spacing:-2px;
-  }
-
+  .tools{grid-template-columns:1fr}
+  .hero h1{letter-spacing:-2px}
   .mask{
     transform:scale(.8) perspective(600px) rotateY(-8deg);
-    margin-top:20px;
   }
-
-  .auth-card{
-    padding:23px;
-  }
+  .auth-card{padding:23px}
 }
 </style>
 </head>
 
 <body>
 
-
-<!-- =====================================================
-     CABEÇALHO
-====================================================== -->
+<!-- HEADER -->
 
 <header class="header">
-
   <div class="header-inner">
 
-    <a class="logo" href="#inicio">
-
-      <div class="logo-icon">
-        ◈
-      </div>
-
-      <div class="logo-text">
+    <a href="#inicio" class="logo">
+      <div class="logo-icon">◈</div>
+      <div>
         <strong>PAINEL</strong>
         <span>INVESTIGAÇÃO</span>
       </div>
-
     </a>
 
-
     <nav class="nav">
-
-      <a href="#inicio">
-        Início
-      </a>
-
-      <a href="#sobre">
-        Sobre nós
-      </a>
-
-      <a href="#contato">
-        Contato
-      </a>
-
+      <a href="#inicio">Início</a>
+      <a href="#sobre">Sobre nós</a>
+      <a href="#contato">Contato</a>
     </nav>
 
-
-    <div class="header-right">
-
-      <button
-        class="header-login"
-        id="headerLogin"
-      >
-        Entrar
-      </button>
-
-    </div>
+    <button class="header-login" id="headerLogin">
+      Entrar
+    </button>
 
   </div>
-
 </header>
 
 
-<!-- =====================================================
-     CAPA
-====================================================== -->
+<!-- CAPA -->
 
-<section
-  class="landing"
-  id="inicio"
->
+<section class="landing" id="inicio">
 
-  <div class="cyber-orb"></div>
-  <div class="cyber-orb red"></div>
-
+  <div class="orb orb-blue"></div>
+  <div class="orb orb-red"></div>
 
   <div class="hero">
 
-    <div class="hero-badge">
+    <div class="badge">
       <i></i>
       SISTEMA ONLINE
     </div>
 
-
     <h1>
-
       PAINEL
-
-      <span class="blue">
-        INVESTIGAÇÃO
-      </span>
-
+      <span class="blue">INVESTIGAÇÃO</span>
       <br>
-
-      <span class="red">
-        INTELIGENTE
-      </span>
-
+      <span class="red">INTELIGENTE</span>
     </h1>
 
-
     <p>
-      Uma central moderna para organizar consultas,
-      ferramentas e informações públicas em um único painel.
+      Uma central moderna para organizar ferramentas,
+      consultas e informações públicas em uma única interface.
     </p>
 
-
     <div class="hero-buttons">
-
-      <button
-        class="btn btn-primary"
-        id="heroLogin"
-      >
+      <button class="btn primary" id="heroLogin">
         Entrar no painel
       </button>
 
-      <button
-        class="btn btn-secondary"
-        id="heroRegister"
-      >
+      <button class="btn secondary" id="heroRegister">
         Criar minha conta
       </button>
-
     </div>
-
-
-    <!-- ELEMENTO 3D ORIGINAL -->
 
     <div class="mask">
-
       <div class="mask-face">
-
         <div class="mask-line"></div>
-
         <div class="eye left"></div>
-
         <div class="eye right"></div>
-
         <div class="mask-mouth"></div>
-
       </div>
-
     </div>
 
   </div>
-
 </section>
 
 
-<!-- =====================================================
-     SOBRE
-====================================================== -->
+<!-- SOBRE -->
 
-<section
-  id="sobre"
-  style="
-    width:min(1000px,calc(100% - 30px));
-    margin:auto;
-    padding:70px 0;
-  "
->
-
-  <div
-    class="welcome"
-  >
-
-    <small>
-      SOBRE NÓS
-    </small>
-
-    <h2>
-      Tecnologia em um só lugar.
-    </h2>
-
-    <p>
-      O painel foi desenvolvido para organizar ferramentas
-      e consultas autorizadas em uma interface moderna,
-      rápida e responsiva.
-    </p>
-
-  </div>
-
-</section>
-
-
-<!-- =====================================================
-     CONTATO
-====================================================== -->
-
-<section
-  id="contato"
-  style="
-    width:min(1000px,calc(100% - 30px));
-    margin:auto;
-    padding:0 0 80px;
-  "
->
+<section id="sobre"
+style="width:min(1000px,calc(100% - 30px));margin:auto;padding:70px 0;">
 
   <div class="welcome">
-
-    <small>
-      CONTATO
-    </small>
-
-    <h2>
-      Fale conosco.
-    </h2>
-
+    <small>SOBRE NÓS</small>
+    <h2>Tecnologia em um só lugar.</h2>
     <p>
-      Configure aqui seu e-mail ou canal oficial de atendimento.
+      Um painel moderno para organizar ferramentas
+      e consultas autorizadas.
     </p>
-
   </div>
 
 </section>
 
 
-<!-- =====================================================
-     LOGIN / CADASTRO
-====================================================== -->
+<!-- CONTATO -->
 
-<section
-  class="auth-page"
-  id="authPage"
->
+<section id="contato"
+style="width:min(1000px,calc(100% - 30px));margin:auto;padding:0 0 80px;">
+
+  <div class="welcome">
+    <small>CONTATO</small>
+    <h2>Fale conosco.</h2>
+    <p>
+      Configure aqui seu canal oficial de atendimento.
+    </p>
+  </div>
+
+</section>
+
+
+<!-- LOGIN/CADASTRO -->
+
+<section class="auth-page" id="authPage">
 
   <div class="auth-card">
 
-    <div class="logo" style="margin-bottom:25px">
-
-      <div class="logo-icon">
-        ◈
-      </div>
-
-      <div class="logo-text">
+    <div class="logo" style="margin-bottom:24px">
+      <div class="logo-icon">◈</div>
+      <div>
         <strong>PAINEL</strong>
         <span>INVESTIGAÇÃO</span>
       </div>
-
     </div>
 
-
-    <h2 id="authTitle">
-      Entrar
-    </h2>
+    <h2 id="authTitle">Entrar</h2>
 
     <p id="authSubtitle">
       Entre para acessar seu painel.
     </p>
 
-
     <form id="authForm">
 
-
-      <div
-        class="field"
-        id="nameField"
-        style="display:none"
-      >
-
-        <label>
-          Nome completo
-        </label>
-
-        <input
-          id="name"
-          type="text"
-          autocomplete="name"
-        >
-
+      <div class="field" id="nameField" style="display:none">
+        <label>Nome completo</label>
+        <input id="name" type="text" autocomplete="name">
       </div>
 
-
-      <div
-        class="field"
-        id="birthField"
-        style="display:none"
-      >
-
-        <label>
-          Data de nascimento
-        </label>
-
-        <input
-          id="birth"
-          type="date"
-        >
-
+      <div class="field" id="birthField" style="display:none">
+        <label>Data de nascimento</label>
+        <input id="birth" type="date">
       </div>
-
 
       <div class="field">
-
-        <label>
-          E-mail
-        </label>
-
-        <input
-          id="email"
-          type="email"
-          required
-          autocomplete="email"
-        >
-
+        <label>E-mail</label>
+        <input id="email" type="email" required autocomplete="email">
       </div>
-
 
       <div class="field">
-
-        <label>
-          Senha
-        </label>
-
-        <input
-          id="password"
-          type="password"
-          minlength="6"
-          required
-          autocomplete="current-password"
-        >
-
+        <label>Senha</label>
+        <input id="password" type="password" minlength="6" required>
       </div>
 
-
-      <button
-        class="btn btn-primary"
-        style="width:100%"
-        id="authButton"
-        type="submit"
-      >
+      <button class="btn primary" style="width:100%" id="authButton">
         Entrar
       </button>
 
-
-      <div
-        class="auth-message"
-        id="authMessage"
-      ></div>
+      <div class="message" id="authMessage"></div>
 
     </form>
 
-
-    <div class="auth-switch">
-
-      <span id="switchText">
-        Ainda não tem uma conta?
-      </span>
-
-      <button
-        id="switchAuth"
-        type="button"
-      >
-        Criar conta
-      </button>
-
+    <div class="switch">
+      <span id="switchText">Ainda não tem uma conta?</span>
+      <button id="switchAuth">Criar conta</button>
     </div>
 
   </div>
-
 </section>
 
 
-<!-- =====================================================
-     PAINEL INTERNO
-====================================================== -->
+<!-- PAINEL -->
 
-<section
-  class="dashboard"
-  id="dashboard"
->
+<section class="dashboard" id="dashboard">
 
   <div class="dashboard-main">
 
-
-    <!-- BOAS-VINDAS -->
-
     <div class="welcome">
 
-      <small>
-        PAINEL ONLINE
-      </small>
-
+      <small>PAINEL ONLINE</small>
 
       <h2>
         Olá,
-        <span
-          id="userName"
-          style="color:#4caeff"
-        >
+        <span id="userName" class="blue">
           Usuário
         </span>
         👋
       </h2>
 
-
       <p>
         Selecione uma ferramenta para iniciar.
       </p>
 
-
       <div class="user-info">
 
-        <div class="info-pill">
-          ✉️
-          <span id="userEmail">
-            —
-          </span>
+        <div class="pill">
+          ✉️ <span id="userEmail">—</span>
         </div>
 
-        <div class="info-pill">
-          🎂
-          <span id="userBirth">
-            —
-          </span>
+        <div class="pill">
+          🎂 <span id="userBirth">—</span>
         </div>
 
       </div>
@@ -1250,84 +873,314 @@ input{
     </div>
 
 
-    <!-- CRÉDITOS -->
+    <!-- CRÉDITOS SOMENTE AQUI -->
 
-    <div class="credits-box">
+    <div class="credits">
 
       <div>
-
         <div class="credit-label">
           SEUS CRÉDITOS
         </div>
 
-        <div
-          class="credit-number"
-          id="creditBalance"
-        >
+        <div class="credit-value" id="creditBalance">
           0
         </div>
-
       </div>
 
-
-      <button
-        class="buy"
-        id="buyCredits"
-      >
+      <button class="buy" id="buyCredits">
         💳 Comprar créditos
       </button>
 
     </div>
 
 
-    <!-- TÍTULO -->
-
     <div class="section-title">
-
-      <h3>
-        Ferramentas
-      </h3>
-
-      <p>
-        Escolha uma opção abaixo.
-      </p>
-
+      <h3>Ferramentas</h3>
+      <p>Escolha uma opção abaixo.</p>
     </div>
 
 
-    <!-- FERRAMENTAS -->
-
-    <div
-      class="tools"
-      id="tools"
-    ></div>
+    <div class="tools" id="tools"></div>
 
 
-    <!-- MENU -->
+    <div class="more-area">
 
-    <div
-      style="
-        display:flex;
-        justify-content:flex-end;
-        margin-top:20px;
-      "
-    >
+      <button class="more" id="moreBtn">
+        ⋮
+      </button>
 
-      <div class="menu-wrap">
+      <div class="menu" id="moreMenu">
 
-        <button
-          class="more-btn"
-          id="moreBtn"
-        >
-          ⋮
+        <button onclick="openTool('DDD + cidades')">
+          ☎️ DDD + cidades
         </button>
 
+        <button onclick="openTool('Rastrear encomenda')">
+          📦 Rastrear encomenda
+        </button>
 
-        <div
-          class="more-menu"
-          id="moreMenu"
-        >
+        <button class="logout" onclick="logout()">
+          🚪 Sair
+        </button>
 
-          <button onclick="openTool('DDD + cidades')">
-            ☎️ DDD + cidades
-         
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- MODAL CONSULTA -->
+
+<div class="modal" id="queryModal">
+
+  <div class="modal-card">
+
+    <h3 id="modalTitle">Consulta</h3>
+
+    <p id="modalText">
+      Informe o dado para consulta.
+    </p>
+
+    <input id="queryInput" placeholder="Digite aqui...">
+
+    <div class="modal-buttons">
+
+      <button class="btn secondary" onclick="closeModal()">
+        Cancelar
+      </button>
+
+      <button class="btn primary" onclick="runQuery()">
+        Consultar
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
+<!-- MODAL CRÉDITOS -->
+
+<div class="modal" id="creditModal">
+
+  <div class="modal-card">
+
+    <h3>💳 Comprar créditos</h3>
+
+    <p>
+      A área de pagamento está preparada para receber
+      posteriormente a integração com seu gateway.
+    </p>
+
+    <button class="btn secondary"
+    style="width:100%;margin-top:8px"
+    onclick="selectPlan(10)">
+      10 créditos
+    </button>
+
+    <button class="btn secondary"
+    style="width:100%;margin-top:8px"
+    onclick="selectPlan(50)">
+      50 créditos
+    </button>
+
+    <button class="btn primary"
+    style="width:100%;margin-top:8px"
+    onclick="selectPlan(100)">
+      100 créditos
+    </button>
+
+    <div style="text-align:right;margin-top:15px">
+      <button class="btn secondary" onclick="closeCreditModal()">
+        Fechar
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- FIREBASE -->
+
+<script type="module">
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyCpLGPXTJbpJr5waC7CCLNiX6a5m7KV7Y8",
+
+  authDomain:
+    "puxar-dados-edf9d.firebaseapp.com",
+
+  projectId:
+    "puxar-dados-edf9d",
+
+  storageBucket:
+    "puxar-dados-edf9d.firebasestorage.app",
+
+  messagingSenderId:
+    "1027365433148",
+
+  appId:
+    "1:1027365433148:web:5a6b4b05844117828f3839"
+};
+
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+
+const landing =
+  document.querySelector(".landing");
+
+const authPage =
+  document.getElementById("authPage");
+
+const dashboard =
+  document.getElementById("dashboard");
+
+const authForm =
+  document.getElementById("authForm");
+
+const authTitle =
+  document.getElementById("authTitle");
+
+const authSubtitle =
+  document.getElementById("authSubtitle");
+
+const authButton =
+  document.getElementById("authButton");
+
+const authMessage =
+  document.getElementById("authMessage");
+
+const nameField =
+  document.getElementById("nameField");
+
+const birthField =
+  document.getElementById("birthField");
+
+const switchAuth =
+  document.getElementById("switchAuth");
+
+const switchText =
+  document.getElementById("switchText");
+
+
+let registerMode = false;
+
+
+/* LOGIN */
+
+function showLogin(){
+
+  landing.style.display = "none";
+  authPage.style.display = "flex";
+  dashboard.style.display = "none";
+
+}
+
+
+/* CADASTRO */
+
+document.getElementById("heroRegister").onclick = () => {
+
+  registerMode = true;
+  updateAuthUI();
+  showLogin();
+
+};
+
+
+/* LOGIN */
+
+document.getElementById("heroLogin").onclick = showLogin;
+document.getElementById("headerLogin").onclick = showLogin;
+
+
+/* TROCAR LOGIN/CADASTRO */
+
+switchAuth.onclick = () => {
+
+  registerMode = !registerMode;
+  updateAuthUI();
+
+};
+
+
+function updateAuthUI(){
+
+  nameField.style.display =
+    registerMode ? "block" : "none";
+
+  birthField.style.display =
+    registerMode ? "block" : "none";
+
+  authTitle.textContent =
+    registerMode ? "Criar conta" : "Entrar";
+
+  authSubtitle.textContent =
+    registerMode
+      ? "Preencha seus dados para criar sua conta."
+      : "Entre para acessar seu painel.";
+
+  authButton.textContent =
+    registerMode
+      ? "Criar minha conta"
+      : "Entrar";
+
+  switchText.textContent =
+    registerMode
+      ? "Já possui uma conta?"
+      : "Ainda não tem uma conta?";
+
+  switchAuth.textContent =
+    registerMode
+      ? "Entrar"
+      : "Criar conta";
+
+  authMessage.textContent = "";
+
+}
+
+
+/* FORMULÁRIO */
+
+authForm.onsubmit = async (event) => {
+
+  event.preventDefault();
+
+  authMessage.style.color = "#ff6079";
+  authMessage.textContent = "Processando...";
+
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").
